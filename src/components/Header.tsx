@@ -1,9 +1,9 @@
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext.tsx'
-import type { Lang } from '../i18n/copy.ts'
+import LangToggle from './LangToggle.tsx'
 
 export default function Header() {
-  const { lang, setLang, t } = useLanguage()
+  const { t } = useLanguage()
   const { pathname } = useLocation()
   const [params] = useSearchParams()
   const mapActive = pathname === '/centers' && params.get('view') === 'map'
@@ -20,18 +20,7 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="site-header__tools">
-        <div className="lang-toggle" role="group" aria-label={t.langLabel}>
-          {(['he', 'en'] as const).map((option) => (
-            <button
-              key={option}
-              type="button"
-              aria-pressed={lang === option}
-              onClick={() => setLang(option satisfies Lang)}
-            >
-              {option === 'he' ? 'עב' : 'EN'}
-            </button>
-          ))}
-        </div>
+        <LangToggle />
       </div>
 
       <Link to="/" className="brand-title" dir="ltr">

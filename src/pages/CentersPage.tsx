@@ -15,6 +15,7 @@ import {
   isViewMode,
   type ViewMode,
 } from '../lib/centers.ts'
+import { useViewport } from '../lib/viewport.ts'
 
 export default function CentersPage() {
   const { lang, t } = useLanguage()
@@ -22,15 +23,8 @@ export default function CentersPage() {
   const [q, setQ] = useState(params.get('q') ?? '')
   const [hoverId, setHoverId] = useState<string | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [isNarrow, setIsNarrow] = useState(() => window.matchMedia('(max-width: 900px)').matches)
+  const isNarrow = useViewport() === 'mobile'
   const pendingMapScroll = useRef(false)
-
-  useEffect(() => {
-    const media = window.matchMedia('(max-width: 900px)')
-    const onChange = () => setIsNarrow(media.matches)
-    media.addEventListener('change', onChange)
-    return () => media.removeEventListener('change', onChange)
-  }, [])
 
   useEffect(() => {
     const handle = window.setTimeout(() => {
@@ -59,7 +53,8 @@ export default function CentersPage() {
   const minRating = ratingParam === '4' || ratingParam === '4.5' ? Number(ratingParam) : 0
   const sort = isSortKey(sortParam) ? sortParam : 'rating'
   const viewParam = params.get('view')
-  const view: ViewMode = isViewMode(viewParam) ? viewParam : isNarrow ? 'list' : 'split'
+  const requested: ViewMode = isViewMode(viewParam) ? viewParam : isNarrow ? 'list' : 'split'
+  const view: ViewMode = isNarrow && requested === 'split' ? 'list' : requested
 
   const filtered = useMemo(
     () =>

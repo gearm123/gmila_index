@@ -14,6 +14,7 @@ import {
   telHref,
   whatsappHref,
 } from '../lib/centers.ts'
+import { useViewport } from '../lib/viewport.ts'
 import type { Center } from '../types/center.ts'
 
 export default function CenterDetailPage() {
@@ -25,6 +26,7 @@ export default function CenterDetailPage() {
 
 function CenterProfile({ center }: { center: Center }) {
   const { lang, t } = useLanguage()
+  const mobile = useViewport() === 'mobile'
   const [photo, setPhoto] = useState(0)
   const [lightbox, setLightbox] = useState(false)
 
@@ -214,16 +216,34 @@ function CenterProfile({ center }: { center: Center }) {
         onClear={() => undefined}
       />
 
+      {mobile ? (
+        <div className="mobile-actions">
+          {center.phone ? (
+            <a className="site-cta site-cta--solid" href={telHref(center.phone)}>
+              {t.card.call}
+            </a>
+          ) : null}
+          {center.whatsapp ? (
+            <a className="site-cta" href={whatsappHref(center, message)} target="_blank" rel="noreferrer">
+              {t.card.whatsapp}
+            </a>
+          ) : null}
+          <a className="site-cta" href={googleDirectionsUrl(center)} target="_blank" rel="noreferrer">
+            {t.detail.directions}
+          </a>
+        </div>
+      ) : null}
+
       {lightbox ? (
         <div className="lightbox" role="dialog" aria-modal="true" aria-label={t.detail.gallery}>
           <button type="button" className="lightbox__close" onClick={() => setLightbox(false)}>
             {t.map.close}
           </button>
-          <button type="button" className="lightbox__nav" onClick={() => step(-1)} aria-label="previous">
+          <button type="button" className="lightbox__nav lightbox__nav--prev" onClick={() => step(-1)} aria-label="previous">
             ‹
           </button>
           <SafeImage src={center.images[photo]} alt={`${name} ${photo + 1}`} />
-          <button type="button" className="lightbox__nav" onClick={() => step(1)} aria-label="next">
+          <button type="button" className="lightbox__nav lightbox__nav--next" onClick={() => step(1)} aria-label="next">
             ›
           </button>
         </div>

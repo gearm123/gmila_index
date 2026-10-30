@@ -3,8 +3,22 @@ import { useLanguage } from '../context/LanguageContext.tsx'
 
 const copyrightYear = new Date().getFullYear()
 
-export default function Footer() {
+export default function Footer({ compact = false }: { compact?: boolean }) {
   const { t } = useLanguage()
+
+  if (compact) {
+    return (
+      <footer className="site-footer site-footer--compact">
+        <div className="site-footer__inner">
+          <p className="site-footer__blurb">{t.footer.blurb}</p>
+          <p className="site-footer__emergency">{t.footer.emergency}</p>
+        </div>
+        <p className="site-footer__copy">
+          © {copyrightYear} GMILA. {t.footer.rights}
+        </p>
+      </footer>
+    )
+  }
 
   return (
     <footer className="site-footer">

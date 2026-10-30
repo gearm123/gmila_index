@@ -966,36 +966,3 @@ html[dir='rtl'] .hero__script {
   font-size: 0.9rem;
 }
 
-@media (max-width: 900px) {
-  .filters__row,
-  .points,
-  .detail__grid,
-  .directory--split {
-    grid-template-columns: 1fr;
-  }
-
-  .directory__map,
-  .detail__contact {
-    position: static;
-  }
-
-  .hero__search {
-    flex-direction: column;
-  }
-
-  .stats {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .centers-map__frame {
-    min-height: 360px;
-    height: 68vh;
-  }
-
-  .centers-map__toolbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}

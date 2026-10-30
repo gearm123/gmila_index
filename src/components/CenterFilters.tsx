@@ -1,6 +1,7 @@
 import { CARE_TYPES, FOCUS_AREAS } from '../types/center.ts'
 import { useLanguage } from '../context/LanguageContext.tsx'
 import type { ViewMode } from '../lib/centers.ts'
+import { useViewport } from '../lib/viewport.ts'
 
 type CenterFiltersProps = {
   q: string
@@ -32,11 +33,12 @@ export default function CenterFilters({
   onReset,
 }: CenterFiltersProps) {
   const { t } = useLanguage()
+  const mobile = useViewport() === 'mobile'
   const views: { id: ViewMode; label: string }[] = [
     { id: 'split', label: t.filters.viewSplit },
     { id: 'list', label: t.filters.viewList },
     { id: 'map', label: t.filters.viewMap },
-  ]
+  ].filter((item): item is { id: ViewMode; label: string } => (mobile ? item.id !== 'split' : true))
 
   return (
     <section className="filters" aria-label={t.filters.search}>

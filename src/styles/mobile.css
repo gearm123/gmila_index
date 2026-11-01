@@ -126,7 +126,7 @@ html[data-ui='mobile'] .inquiry .site-cta {
 }
 
 html[data-ui='mobile'] .stats {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.45rem;
   margin-top: 1.15rem;
   text-align: center;
@@ -152,6 +152,8 @@ html[data-ui='mobile'] .directory--split {
 html[data-ui='mobile'] .directory__map,
 html[data-ui='mobile'] .detail__contact {
   position: static;
+  max-height: none;
+  overflow: visible;
 }
 
 html[data-ui='mobile'] .field input,
@@ -162,6 +164,15 @@ html[data-ui='mobile'] .hero__search input {
   font-size: 16px;
 }
 
+html[data-ui='mobile'] .area-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+html[data-ui='mobile'] .area-grid .area-card:last-child {
+  grid-column: 1 / -1;
+}
+
+html[data-ui='mobile'] .area-chips,
 html[data-ui='mobile'] .care-chips {
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -169,10 +180,12 @@ html[data-ui='mobile'] .care-chips {
   scrollbar-width: none;
 }
 
+html[data-ui='mobile'] .area-chips::-webkit-scrollbar,
 html[data-ui='mobile'] .care-chips::-webkit-scrollbar {
   display: none;
 }
 
+html[data-ui='mobile'] .area-chips button,
 html[data-ui='mobile'] .care-chips button,
 html[data-ui='mobile'] .view-toggle button {
   min-height: 2.5rem;
@@ -249,7 +262,11 @@ html[data-ui='mobile'] .detail__phone {
 }
 
 html[data-ui='mobile'] .detail {
-  padding-bottom: 4.2rem;
+  padding-bottom: 1rem;
+}
+
+html[data-ui='mobile']:has(.mobile-actions) body {
+  padding-bottom: calc(12rem + env(safe-area-inset-bottom));
 }
 
 html[data-ui='mobile'] .mobile-actions {
@@ -258,14 +275,17 @@ html[data-ui='mobile'] .mobile-actions {
   inset-inline: 0.55rem;
   bottom: calc(4.55rem + env(safe-area-inset-bottom));
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 0.4rem;
   padding: 0.4rem;
   border: 1px solid var(--rule);
   border-radius: 14px;
   background: var(--white);
   box-shadow: 0 8px 24px rgba(17, 17, 17, 0.12);
+}
+
+html[data-ui='mobile'] .mobile-actions__tour {
+  grid-column: 1 / -1;
 }
 
 html[data-ui='mobile'] .mobile-actions .site-cta {

@@ -1,4 +1,7 @@
 import type { Center } from '../types/center.ts'
+import { moreWorldCenters } from './moreWorldCenters.ts'
+import { oasasCenters } from './oasasCenters.ts'
+import { worldCenters } from './worldCenters.ts'
 
 const none = { quotes: [], branches: [], pricing: null as Center['pricing'] }
 
@@ -55,6 +58,10 @@ export const centers: Center[] = [
           en: 'A life-saving treatment center. Recommended for anyone dealing with addiction and trauma. A professional, caring, devoted staff.',
         },
         by: { he: 'ביקורת גוגל, 5 מתוך 5, פברואר 2026', en: 'Google review, 5 out of 5, February 2026' },
+        detail: {
+          he: 'זה קיצור של ביקורת גוגל שקיבלה 5 מתוך 5 בפברואר 2026. הכותב ממליץ על המרכז למי שמתמודד עם התמכרות וטראומה, ומתאר צוות מקצועי, אוהב ומסור. השם לא פורסם בכרטיס. הציון הכולל של רטורנו בגוגל הוא 3.7 מתוך 42 ביקורות, כך שהשורה הזו היא ביקורת אחת ולא הממוצע.',
+          en: 'This is a shortened paraphrase of a Google review scored 5 out of 5 in February 2026. The writer recommends the center for addiction and trauma and describes the staff as professional, caring, and devoted. The name is not on this card. Retorno’s Google listing overall is 3.7 from 42 reviews, so this line is one review, not the average.',
+        },
       },
       {
         quote: {
@@ -62,6 +69,10 @@ export const centers: Center[] = [
           en: 'A very dangerous place, and not right for everyone. I would not recommend it at all, especially for young people.',
         },
         by: { he: 'ביקורת גוגל, 1 מתוך 5, דצמבר 2025', en: 'Google review, 1 out of 5, December 2025' },
+        detail: {
+          he: 'זה קיצור של ביקורת גוגל שקיבלה 1 מתוך 5 בדצמבר 2025. הכותב קורא למקום מסוכן, כותב שהוא לא מתאים לכל אחד, וממליץ נגד, בפרט לצעירים. השם לא פורסם בכרטיס. זו ביקורת אחת מתוך 42 בכרטיס של רטורנו, שהממוצע שלו הוא 3.7.',
+          en: 'This is a shortened paraphrase of a Google review scored 1 out of 5 in December 2025. The writer calls the place dangerous, says it is not right for everyone, and recommends against it, especially for young people. The name is not on this card. It is one of 42 reviews on Retorno’s listing, whose average is 3.7.',
+        },
       },
       {
         quote: {
@@ -69,6 +80,10 @@ export const centers: Center[] = [
           en: 'Retorno gave me a reason to live. I am not just clean, going on five years, I actually feel good about myself.',
         },
         by: { he: 'ביקורת גוגל, 5 מתוך 5, אוגוסט 2017', en: 'Google review, 5 out of 5, August 2017' },
+        detail: {
+          he: 'זה קיצור של ביקורת גוגל שקיבלה 5 מתוך 5 באוגוסט 2017. הכותב אומר שרטורנו נתנה סיבה לחיות, ושמדובר בכחמש שנים נקי עם תחושה טובה כלפי עצמו. השם לא פורסם בכרטיס.',
+          en: 'This is a shortened paraphrase of a Google review scored 5 out of 5 in August 2017. The writer says Retorno gave a reason to live, and describes about five years clean together with feeling good about himself. The name is not on this card.',
+        },
       },
     ],
     branches: [],
@@ -127,6 +142,10 @@ export const centers: Center[] = [
           en: 'After going through detox at Retorno, I have been clean for more than three years, healthy, with a profession, a future, and a lot of faith in myself.',
         },
         by: { he: 'שלומי, 23, פורסם בעמוד האשפוזית באתר רטורנו', en: 'Shlomi, 23, published on the inpatient page of the Retorno site' },
+        detail: {
+          he: 'העמוד של האשפוזית מפרסם את שלומי, בן 23, שכותב שאחרי גמילה ברטורנו הוא יותר משלוש שנים נקי ובריא, עם מקצוע, עתיד ואמונה בעצמו. העמוד לא מפרט באיזו יחידה בדיוק הוא היה מעבר לגמילה ברטורנו.',
+          en: 'The inpatient page publishes Shlomi, age 23, who writes that after detox at Retorno he has been clean and healthy for more than three years, with a profession, a future, and faith in himself. The page does not say which unit he attended beyond detox at Retorno.',
+        },
       },
     ],
     branches: [],
@@ -234,6 +253,10 @@ export const centers: Center[] = [
           en: 'A place with extra soul, giving a second chance to people addicted to drugs and alcohol. On Mount Gilboa, with beautiful views.',
         },
         by: { he: 'ביקורת גוגל, 5 מתוך 5, יוני 2025', en: 'Google review, 5 out of 5, June 2025' },
+        detail: {
+          he: 'זה קיצור של ביקורת גוגל שקיבלה 5 מתוך 5 ביוני 2025. הכותב מתאר הזדמנות שנייה למכורים לסמים ולאלכוהול, ואת הנוף על הר הגלבוע. כרטיס גוגל רשום בשם עמותת נווה מלכישוע, 4.6 מתוך 119 ביקורות.',
+          en: 'This is a shortened paraphrase of a Google review scored 5 out of 5 in June 2025. The writer describes a second chance for people addicted to drugs and alcohol, and the view on Mount Gilboa. The Google listing is titled Neve Malkishua Association, 4.6 from 119 reviews.',
+        },
       },
       {
         quote: {
@@ -241,6 +264,10 @@ export const centers: Center[] = [
           en: 'A very important and nice rehabilitation center for drug and alcohol addictions.',
         },
         by: { he: 'ביקורת גוגל, 5 מתוך 5, פברואר 2018', en: 'Google review, 5 out of 5, February 2018' },
+        detail: {
+          he: 'זה קיצור של ביקורת גוגל שקיבלה 5 מתוך 5 בפברואר 2018. הכותב קורא למקום מרכז שיקום חשוב ונעים לסמים ולאלכוהול. אין בביקורת פרטים על משך השהות או על יחידה מסוימת. הממוצע בכרטיס הוא 4.6 מתוך 119.',
+          en: 'This is a shortened paraphrase of a Google review scored 5 out of 5 in February 2018. The writer calls it an important and pleasant rehabilitation center for drugs and alcohol. The review does not say how long the stay was or which unit it was. The listing average is 4.6 from 119 reviews.',
+        },
       },
     ],
     branches: [
@@ -295,14 +322,26 @@ export const centers: Center[] = [
       {
         quote: { he: 'מקום שמציל אנשים באמת.', en: 'A place that really saves people.' },
         by: { he: 'פורסם באתר העמותה, בלי שם מלא', en: 'Published on the association site, without a full name' },
+        detail: {
+          he: 'האתר מפרסם את המשפט הזה בלי שם מלא, בלי תאריך ובלי סיפור ארוך יותר. אין ציון מספרי ליד השורה.',
+          en: 'The site publishes this sentence without a full name, without a date, and without a longer story. There is no numeric score next to the line.',
+        },
       },
       {
         quote: { he: 'מקום פשוט מושלם. אנשים מיוחדים.', en: 'Simply a perfect place. Special people.' },
         by: { he: 'י.א, באתר העמותה', en: 'Y.A., on the association site' },
+        detail: {
+          he: 'האתר חותם את השורה בראשי התיבות י.א. אין שם מלא, תאריך, או פירוט של התוכנית שעליה מדובר.',
+          en: 'The site signs the line with the initials Y.A. There is no full name, date, or detail of which program it refers to.',
+        },
       },
       {
         quote: { he: 'אין עליכם. בזכותכם אני חיה 14 שנה.', en: 'Thanks to you I have been living for 14 years.' },
         by: { he: 'פורסם באתר העמותה, בלי שם מלא', en: 'Published on the association site, without a full name' },
+        detail: {
+          he: 'הכותבת, בלי שם מלא, מייחסת לעמותה 14 שנות חיים. האתר לא מוסיף גיל, תאריך או שם היחידה.',
+          en: 'The writer, without a full name, credits the association with 14 years of life. The site adds no age, date, or unit name.',
+        },
       },
     ],
     branches: [],
@@ -755,6 +794,10 @@ export const centers: Center[] = [
           en: '50% of people in Israel who are addicted to gambling, who come to treatment and persist, manage to recover.',
         },
         by: { he: 'תשובה בעמוד השאלות באתר מיל״ה', en: 'An answer on the MILA questions page' },
+        detail: {
+          he: 'עמוד השאלות של מיל״ה כותב ש־50% מהמכורים להימורים בישראל שמגיעים לטיפול ומתמידים בו מצליחים להשתקם. זו טענה של הארגון על תוצאה, לא ביקורת של מטופל, והעמוד לא מפרסם את שיטת הספירה.',
+          en: 'The MILA questions page says that 50% of people in Israel who are addicted to gambling, who come to treatment and persist, manage to recover. This is the organization’s statement about an outcome, not a patient review, and the page does not publish the counting method.',
+        },
       },
     ],
     branches: [
@@ -967,6 +1010,10 @@ export const centers: Center[] = [
           en: 'A government detox unit. The best in the country. It is not private, but the attitude is kind. An excellent manager and attentive guides.',
         },
         by: { he: 'ביקורת גוגל, 4 מתוך 5, ינואר 2023', en: 'Google review, 4 out of 5, January 2023' },
+        detail: {
+          he: 'זה קיצור של ביקורת גוגל שקיבלה 4 מתוך 5 בינואר 2023. הכותב קורא למקום אשפוזית ממשלתית, משבח את היחס ואת המדריכים, ומציין שזה לא מקום פרטי. הציון הכולל בכרטיס הוא 3.7 מתוך 9 ביקורות.',
+          en: 'This is a shortened paraphrase of a Google review scored 4 out of 5 in January 2023. The writer calls it a government detox unit, praises the attitude and the guides, and notes that it is not private. The listing average is 3.7 from 9 reviews.',
+        },
       },
       {
         quote: {
@@ -974,6 +1021,10 @@ export const centers: Center[] = [
           en: 'A professional place that gives a proper response to people who are addicted.',
         },
         by: { he: 'ביקורת גוגל, 5 מתוך 5, אוגוסט 2020', en: 'Google review, 5 out of 5, August 2020' },
+        detail: {
+          he: 'זה קיצור של ביקורת גוגל שקיבלה 5 מתוך 5 באוגוסט 2020. הכותב קורא למקום מקצועי שנותן מענה למכורים. אין בביקורת שם, משך שהות, או יחידה. זו ביקורת אחת מתוך 9, והממוצע הוא 3.7.',
+          en: 'This is a shortened paraphrase of a Google review scored 5 out of 5 in August 2020. The writer calls it a professional place that responds to people who are addicted. The review gives no name, length of stay, or unit. It is one of 9 reviews, and the average is 3.7.',
+        },
       },
       {
         quote: {
@@ -981,6 +1032,10 @@ export const centers: Center[] = [
           en: 'Criminals. A prison is preferable.',
         },
         by: { he: 'ביקורת גוגל, 1 מתוך 5, אפריל 2020', en: 'Google review, 1 out of 5, April 2020' },
+        detail: {
+          he: 'זה קיצור של ביקורת גוגל שקיבלה 1 מתוך 5 באפריל 2020. הכותב משתמש במילה עבריינים וכותב שבית סוהר עדיף. אין שם ואין פירוט של מה שקרה. זו ביקורת אחת מתוך 9.',
+          en: 'This is a shortened paraphrase of a Google review scored 1 out of 5 in April 2020. The writer uses the word criminals and says a prison is preferable. There is no name and no account of what happened. It is one of 9 reviews.',
+        },
       },
     ],
     branches: [],
@@ -1191,6 +1246,10 @@ export const centers: Center[] = [
           en: 'I entered the center in a very hard physical and emotional state, with no strength and no hope. I felt I was with people who really wanted to help, not just another paying client.',
         },
         by: { he: 'פורסם בעמוד האודות של ויטה, בלי שם', en: 'Published on the Vita about page, without a name' },
+        detail: {
+          he: 'עמוד האודות מפרסם את השורה בלי שם. הכותב מתאר כניסה במצב פיזי ורגשי קשה, וצוות שרצה לעזור ולא רק לגבות תשלום. אין תאריך ואין משך שהות.',
+          en: 'The about page publishes the line without a name. The writer describes arriving in a hard physical and emotional state, and a staff that wanted to help rather than only collect a fee. There is no date and no length of stay.',
+        },
       },
     ],
     branches: [],
@@ -1340,6 +1399,10 @@ export const centers: Center[] = [
           en: 'Thank you for the listening, for the process, and for a supporting hand in the hard moments.',
         },
         by: { he: 'פורסם באתר המרכז, בלי שם מלא', en: 'Published on the center site, without a full name' },
+        detail: {
+          he: 'האתר מפרסם תודה על הקשבה, על התהליך, ועל יד תומכת. אין שם מלא ואין תאריך. כרטיס גוגל של המרכז עומד על 5.0 מתוך 17, והשורה הזו היא מאתר המרכז ולא מגוגל.',
+          en: 'The site publishes thanks for listening, for the process, and for a supporting hand. There is no full name and no date. The center’s Google listing is 5.0 from 17 reviews, and this line is from the center’s site, not from Google.',
+        },
       },
       {
         quote: {
@@ -1347,6 +1410,10 @@ export const centers: Center[] = [
           en: 'We got our son back. You are the only one who managed to bring him to where he is today.',
         },
         by: { he: 'פורסם באתר המרכז, בלי שם מלא', en: 'Published on the center site, without a full name' },
+        detail: {
+          he: 'האתר מפרסם משפחה, בלי שם, שכותבת שהבן חזר ושהמרכז הוא היחיד שהביא אותו למצבו הנוכחי. אין גיל, תאריך, או פירוט של הטיפול.',
+          en: 'The site publishes a family, without a name, writing that their son came back and that the center is the only one that brought him to where he is. There is no age, date, or account of the treatment.',
+        },
       },
     ],
     branches: [],
@@ -1455,6 +1522,10 @@ export const centers: Center[] = [
           en: 'A very dear and important person in recovery, with a lot of experience. Part of the good place I am in is thanks to him. Thank you, Paz.',
         },
         by: { he: 'אסף פרופר, בעמוד חוות הדעת באתר', en: 'Asaf Proper, on the site’s testimonials page' },
+        detail: {
+          he: 'עמוד חוות הדעת מפרסם את אסף פרופר, שמודה לפז אידן ומתאר אותו כאיש חשוב בתחום ההחלמה. אין תאריך ואין ציון מספרי.',
+          en: 'The testimonials page publishes Asaf Proper, who thanks Paz Idan and describes him as an important person in recovery. There is no date and no numeric score.',
+        },
       },
       {
         quote: {
@@ -1462,6 +1533,10 @@ export const centers: Center[] = [
           en: 'Professionalism, patience, and listening at the highest level.',
         },
         by: { he: 'סאן משולם, בעמוד חוות הדעת באתר', en: 'San Meshulam, on the site’s testimonials page' },
+        detail: {
+          he: 'עמוד חוות הדעת מפרסם את סאן משולם, שכותב על מקצועיות, סבלנות והקשבה. אין תאריך, אין ציון, ואין פירוט של המסלול.',
+          en: 'The testimonials page publishes San Meshulam, who writes about professionalism, patience, and listening. There is no date, no score, and no account of the track.',
+        },
       },
     ],
     branches: [],
@@ -1567,4 +1642,7 @@ export const centers: Center[] = [
     sourceUrl: 'https://ezone-rehab.co.il/Branch/e-zone-%D7%A7%D7%99%D7%A1%D7%A8%D7%99%D7%94/',
     publicFunding: false,
   },
+  ...worldCenters,
+  ...moreWorldCenters,
+  ...oasasCenters,
 ]

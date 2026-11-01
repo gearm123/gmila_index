@@ -1,4 +1,6 @@
 export type ContactMethod = 'phone' | 'whatsapp' | 'email'
+export type InquiryPurpose = 'callback' | 'tour'
+export type TourTime = 'morning' | 'afternoon' | 'evening'
 
 export type InquiryInput = {
   centerId: string | null
@@ -8,6 +10,9 @@ export type InquiryInput = {
   email: string
   contactMethod: ContactMethod
   message: string
+  purpose: InquiryPurpose
+  tourDate: string | null
+  tourTime: TourTime | null
 }
 
 export type Inquiry = InquiryInput & {

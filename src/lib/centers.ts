@@ -2,22 +2,78 @@ import { centers } from '../data/centers.ts'
 import {
   CARE_TYPES,
   FOCUS_AREAS,
+  type AreaId,
   type CareType,
   type Center,
   type FocusArea,
 } from '../types/center.ts'
 import type { Lang } from '../i18n/copy.ts'
+import { centerAreaId, centerCountryId, countryName } from './places.ts'
 
 export type SortKey = 'rating' | 'name' | 'city'
 export type ViewMode = 'split' | 'list' | 'map'
 
 export type CenterQuery = {
   q: string
+  areaId?: AreaId | ''
+  countryId?: string
   cityId: string
   care: CareType | ''
   focus: FocusArea | ''
   minRating: number
   sort: SortKey
+}
+
+const areaBuckets = new Map<AreaId, Center[]>()
+const countryBuckets = new Map<string, Center[]>()
+const searchBlob = new Map<string, string>()
+
+for (const center of centers) {
+  const area = centerAreaId(center)
+  const country = centerCountryId(center)
+  const areaList = areaBuckets.get(area) ?? []
+  areaList.push(center)
+  areaBuckets.set(area, areaList)
+  const countryList = countryBuckets.get(country) ?? []
+  countryList.push(center)
+  countryBuckets.set(country, countryList)
+}
+
+export function centersByArea(areaId: AreaId): Center[] {
+  return areaBuckets.get(areaId) ?? []
+}
+
+export function centersInScope(areaId: AreaId | '', countryId: string): Center[] {
+  let list: Center[] = areaId ? (areaBuckets.get(areaId) ?? []) : centers
+  if (countryId) {
+    list = areaId ? list.filter((center) => centerCountryId(center) === countryId) : (countryBuckets.get(countryId) ?? [])
+  }
+  return list
+}
+
+function searchText(center: Center): string {
+  const cached = searchBlob.get(center.id)
+  if (cached) return cached
+  const countryId = centerCountryId(center)
+  const text = [
+    center.name.he,
+    center.name.en,
+    center.city.he,
+    center.city.en,
+    center.region.he,
+    center.region.en,
+    center.address.he,
+    center.address.en,
+    center.summary.he,
+    center.summary.en,
+    countryName(countryId, 'he'),
+    countryName(countryId, 'en'),
+    center.countryId ?? '',
+  ]
+    .join(' ')
+    .toLowerCase()
+  searchBlob.set(center.id, text)
+  return text
 }
 
 export function isCareType(value: string | null): value is CareType {
@@ -41,39 +97,51 @@ export function getCenterBySlug(slug: string | undefined): Center | undefined {
   return centers.find((center) => center.slug === slug)
 }
 
-export function cityOptions(lang: Lang): { id: string; label: string }[] {
+export function countryOptions(list: Center[], lang: Lang): { id: string; label: string }[] {
   const seen = new Map<string, string>()
-  centers.forEach((center) => {
-    if (!seen.has(center.cityId)) seen.set(center.cityId, center.city[lang])
+  list.forEach((center) => {
+    const id = centerCountryId(center)
+    if (!seen.has(id)) seen.set(id, countryName(id, lang))
   })
   return [...seen.entries()]
     .map(([id, label]) => ({ id, label }))
     .sort((a, b) => a.label.localeCompare(b.label, lang))
 }
 
+export function cityOptions(lang: Lang, list: Center[] = centers): { id: string; label: string }[] {
+  const seen = new Map<string, { label: string; region: string }>()
+  list.forEach((center) => {
+    if (!seen.has(center.cityId)) {
+      seen.set(center.cityId, { label: center.city[lang], region: center.region[lang] })
+    }
+  })
+  const rows = [...seen.entries()].map(([id, value]) => ({ id, ...value }))
+  const nameCount = new Map<string, number>()
+  rows.forEach((row) => nameCount.set(row.label, (nameCount.get(row.label) ?? 0) + 1))
+  return rows
+    .map((row) => ({
+      id: row.id,
+      label: (nameCount.get(row.label) ?? 0) > 1 ? `${row.label} · ${row.region}` : row.label,
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label, lang))
+}
+
 export function filterCenters(list: Center[], query: CenterQuery, lang: Lang): Center[] {
   const needle = query.q.trim().toLowerCase()
-  return list.filter((center) => {
+  const areaId = query.areaId ?? ''
+  const countryId = query.countryId ?? ''
+  const source = list === centers ? centersInScope(areaId, countryId) : list
+  return source.filter((center) => {
+    if (list !== centers) {
+      if (areaId && centerAreaId(center) !== areaId) return false
+      if (countryId && centerCountryId(center) !== countryId) return false
+    }
     if (query.cityId && center.cityId !== query.cityId) return false
     if (query.care && !center.care.includes(query.care)) return false
     if (query.focus && !center.focus.includes(query.focus)) return false
     if (query.minRating && (center.googleRating == null || center.googleRating < query.minRating)) return false
     if (!needle) return true
-    const haystack = [
-      center.name.he,
-      center.name.en,
-      center.city.he,
-      center.city.en,
-      center.region.he,
-      center.region.en,
-      center.address.he,
-      center.address.en,
-      center.summary.he,
-      center.summary.en,
-    ]
-      .join(' ')
-      .toLowerCase()
-    return haystack.includes(needle)
+    return searchText(center).includes(needle)
   }).sort((a, b) => compareCenters(a, b, query.sort, lang))
 }
 
@@ -107,7 +175,7 @@ export function whatsappHref(center: Center, text: string): string {
 export function googlePlaceUrl(center: Center): string {
   const query = center.sample
     ? `${center.lat},${center.lng}`
-    : `${center.name.en} ${center.city.en}`
+    : `${center.name.en} ${center.city.en} ${countryName(centerCountryId(center), 'en')}`
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
 }
 

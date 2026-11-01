@@ -1,7 +1,7 @@
 import { createContext, useContext, useLayoutEffect, useState, type ReactNode } from 'react'
 import { copy, type Copy, type Lang } from '../i18n/copy.ts'
 
-const STORAGE_KEY = 'gmila-lang'
+const STORAGE_KEY = 'gmila-lang-choice'
 
 type LanguageContextValue = {
   lang: Lang
@@ -12,9 +12,9 @@ type LanguageContextValue = {
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
 function initialLang(): Lang {
-  if (typeof window === 'undefined') return 'he'
+  if (typeof window === 'undefined') return 'en'
   const stored = localStorage.getItem(STORAGE_KEY)
-  return stored === 'en' || stored === 'he' ? stored : 'he'
+  return stored === 'en' || stored === 'he' ? stored : 'en'
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {

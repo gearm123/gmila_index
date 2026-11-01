@@ -18,7 +18,10 @@ export type Copy = {
     all: string
     map: string
   }
-  stats: { centers: string; cities: string; rating: string }
+  stats: { centers: string; cities: string; countries: string; rating: string }
+  areasKicker: string
+  areasTitle: string
+  areasAll: string
   featured: { kicker: string; title: string }
   mapBand: { kicker: string; title: string; lede: string; open: string }
   points: { title: string; text: string }[]
@@ -28,6 +31,8 @@ export type Copy = {
   social: Record<SocialNetwork, string>
   filters: {
     search: string
+    country: string
+    allCountries: string
     city: string
     allCities: string
     care: string
@@ -60,6 +65,7 @@ export type Copy = {
     onMap: string
     email: string
     website: string
+    bookTour: string
   }
   detail: {
     back: string
@@ -81,6 +87,8 @@ export type Copy = {
     pricing: string
     social: string
     quotes: string
+    reviewOpen: string
+    reviewClose: string
     branches: string
     noRating: string
     source: string
@@ -103,6 +111,16 @@ export type Copy = {
     sampleWarning: string
     generalTitle: string
     centerTitle: string
+    tourTitle: string
+    tourNote: string
+    tourDate: string
+    tourTime: string
+    morning: string
+    afternoon: string
+    evening: string
+    tourSubmit: string
+    tourSuccess: string
+    dateError: string
   }
   about: { kicker: string; title: string; script: string; paragraphs: string[] }
   contact: { kicker: string; title: string; lede: string }
@@ -114,7 +132,7 @@ export type Copy = {
 
 export const copy: Record<Lang, Copy> = {
   he: {
-    brandTagline: 'מרכזי גמילה בישראל',
+    brandTagline: 'מרכזי גמילה בעולם',
     langLabel: 'שפה',
     sampleAll: 'כל הכרטיסים שמוצגים כרגע הם נתוני הדגמה. מספר הטלפון אינו אמיתי. הרשימה המלאה תחליף אותם.',
     sampleSome: 'חלק מהכרטיסים הם נתוני הדגמה ומסומנים בהתאם.',
@@ -127,21 +145,24 @@ export const copy: Record<Lang, Copy> = {
       aria: 'ניווט ראשי',
     },
     hero: {
-      kicker: 'מדריך ארצי',
-      title: 'כל מרכזי הגמילה',
+      kicker: 'מדריך לפי מדינה',
+      title: 'מרכזי גמילה לפי מדינה',
       script: 'במקום אחד',
-      lede: 'תמונות, דירוג גוגל, כתובת ודרך לפנות לכל מסגרת — על המפה וברשימה.',
-      search: 'חיפוש לפי שם, עיר או אזור',
+      lede: 'ישראל, ניו יורק, קפריסין, אירופה ותאילנד. תמונות, דירוג גוגל כשיש, כתובת ודרך לפנות.',
+      search: 'חיפוש לפי שם, עיר או מדינה',
       searchButton: 'חיפוש',
       all: 'לכל המרכזים',
       map: 'צפייה במפה',
     },
-    stats: { centers: 'מרכזים', cities: 'ערים', rating: 'דירוג ממוצע' },
+    stats: { centers: 'מרכזים', cities: 'ערים', countries: 'מדינות', rating: 'דירוג ממוצע' },
+    areasKicker: 'לפי אזור',
+    areasTitle: 'בחרו מדינה',
+    areasAll: 'כל האזורים',
     featured: { kicker: 'נבחרו להצגה', title: 'מהרשימה' },
     mapBand: {
-      kicker: 'פריסה',
-      title: 'כל המרכזים על המפה',
-      lede: 'בחרו נקודה כדי לראות דירוג ודרכי קשר. כל כרטיס נפתח גם בגוגל מפות.',
+      kicker: 'מפה לפי אזור',
+      title: 'המפה של האזור שנבחר',
+      lede: 'בחרו אזור והמפה מציגה רק אותו. כל כרטיס נפתח גם בגוגל מפות.',
       open: 'למפה המלאה',
     },
     points: [
@@ -159,8 +180,8 @@ export const copy: Record<Lang, Copy> = {
       },
     ],
     footer: {
-      blurb: 'מדריך למרכזי גמילה ושיקום בישראל.',
-      emergency: 'האתר אינו קו חירום ואינו ייעוץ רפואי. במצוקה מיידית: מד״א 101, ער״ן 1201.',
+      blurb: 'מדריך למרכזי גמילה ושיקום לפי מדינה.',
+      emergency: 'האתר אינו קו חירום ואינו ייעוץ רפואי. בישראל: מד״א 101, ער״ן 1201. במדינות אחרות: מספר החירום המקומי.',
       rights: 'כל הזכויות שמורות.',
     },
     care: {
@@ -189,6 +210,8 @@ export const copy: Record<Lang, Copy> = {
     },
     filters: {
       search: 'חיפוש',
+      country: 'מדינה',
+      allCountries: 'כל המדינות',
       city: 'עיר',
       allCities: 'כל הערים',
       care: 'סוג מסגרת',
@@ -209,7 +232,7 @@ export const copy: Record<Lang, Copy> = {
       resultOne: 'מרכז אחד',
       results: 'מרכזים',
       emptyTitle: 'אין מרכזים שמתאימים לסינון',
-      emptyText: 'נסו עיר אחרת, או נקו את החיפוש.',
+      emptyText: 'נסו מדינה אחרת, או נקו את החיפוש.',
       reset: 'ניקוי סינון',
     },
     card: {
@@ -221,6 +244,7 @@ export const copy: Record<Lang, Copy> = {
       onMap: 'על המפה',
       email: 'אימייל',
       website: 'אתר',
+      bookTour: 'קביעת סיור',
     },
     detail: {
       back: 'חזרה למרכזים',
@@ -241,7 +265,9 @@ export const copy: Record<Lang, Copy> = {
       sampleNote: 'זה כרטיס הדגמה. הטלפון, האתר והדירוג אינם של מסגרת אמיתית.',
       pricing: 'מחיר',
       social: 'רשתות',
-      quotes: 'ביקורות',
+      quotes: 'ביקורות והמלצות',
+      reviewOpen: 'הסבר מלא',
+      reviewClose: 'סגירה',
       branches: 'סניפים וטלפונים',
       noRating: 'לא נמצא דירוג גוגל למרכז הזה.',
       source: 'מקור',
@@ -264,15 +290,25 @@ export const copy: Record<Lang, Copy> = {
       sampleWarning: 'המרכז הזה הוא דוגמה, והפנייה לא תגיע למסגרת אמיתית.',
       generalTitle: 'השאירו פרטים ונחזור אליכם',
       centerTitle: 'בקשו שיחזרו אליכם',
+      tourTitle: 'בקשת סיור',
+      tourNote: 'בחרו תאריך מועדף. הבקשה נשמרת במכשיר הזה ואינה אישור של מועד. השליחה למרכז תחובר כשהרשימה תהיה מוכנה.',
+      tourDate: 'תאריך מועדף',
+      tourTime: 'חלק מהיום',
+      morning: 'בוקר',
+      afternoon: 'אחר הצהריים',
+      evening: 'ערב',
+      tourSubmit: 'שליחת בקשת סיור',
+      tourSuccess: 'בקשת הסיור נשמרה במכשיר הזה. המועד אינו מאושר. השליחה למרכז תחובר כשהרשימה תהיה מוכנה.',
+      dateError: 'נא לבחור תאריך מהיום והלאה.',
     },
     about: {
       kicker: 'המדריך',
       title: 'איך לקרוא את האתר',
       script: 'לפני הרשימה המלאה',
       paragraphs: [
-        'GMILA הוא מדריך למרכזי גמילה ושיקום בישראל. בכל כרטיס יש מקום לתמונות, מיקום, דירוג גוגל, שעות, שפות, סוג המסגרת ודרכי התקשרות.',
-        'הרשימה נלקחה מאתרי המרכזים, ממדריכים ממשלתיים, ומכרטיסי גוגל כשיש ציון. אם לא נמצא דירוג, הכרטיס נשאר בלי כוכבים.',
-        'אפשר לסנן לפי עיר, סוג מסגרת ותחום, לפתוח כל מקום בגוגל מפות, ולהתקשר, לשלוח וואטסאפ או להשאיר פנייה.',
+        'GMILA הוא מדריך למרכזי גמילה ושיקום. הרשימה מחולקת לישראל, ניו יורק, קפריסין, אירופה ותאילנד. בכל כרטיס יש מקום לתמונות, מיקום, דירוג גוגל, שעות, שפות, סוג המסגרת ודרכי התקשרות.',
+        'הרשימה נלקחה מאתרי המרכזים, ממדריכים ממשלתיים, ומכרטיסי גוגל רק כשהציון תואם למרכז. אם לא אומת דירוג, הכרטיס נשאר בלי כוכבים.',
+        'אפשר לסנן לפי אזור, מדינה, עיר, סוג מסגרת ותחום, לפתוח כל מקום בגוגל מפות, ולהתקשר, לשלוח וואטסאפ או להשאיר פנייה.',
         'האתר עוזר למצוא מסגרת. הוא אינו ייעוץ רפואי ואינו שירות חירום.',
       ],
     },
@@ -293,7 +329,7 @@ export const copy: Record<Lang, Copy> = {
       close: 'סגירה',
     },
     meta: {
-      home: 'GMILA | מרכזי גמילה בישראל',
+      home: 'GMILA | מרכזי גמילה לפי מדינה',
       centers: 'כל המרכזים | GMILA',
       about: 'אודות | GMILA',
       contact: 'צור קשר | GMILA',
@@ -302,7 +338,7 @@ export const copy: Record<Lang, Copy> = {
     whatsappText: 'שלום, אשמח לפרטים על',
   },
   en: {
-    brandTagline: 'Rehab centers in Israel',
+    brandTagline: 'Rehab centers by country',
     langLabel: 'Language',
     sampleAll: 'Every card on the site right now is sample data. The phone numbers are not real. The full list will replace them.',
     sampleSome: 'Some cards are sample data and are marked as such.',
@@ -315,21 +351,24 @@ export const copy: Record<Lang, Copy> = {
       aria: 'Primary',
     },
     hero: {
-      kicker: 'A national directory',
-      title: 'Rehab centers in Israel',
+      kicker: 'A directory by country',
+      title: 'Rehab centers by country',
       script: 'in one place',
-      lede: 'Photos, Google rating, address, and a way to reach each program — on the map and in the list.',
-      search: 'Search by name, city, or region',
+      lede: 'Israel, New York, Cyprus, Europe, and Thailand. Photos, a Google rating when one matches, an address, and a way to reach each program.',
+      search: 'Search by name, city, or country',
       searchButton: 'Search',
       all: 'All centers',
       map: 'View the map',
     },
-    stats: { centers: 'Centers', cities: 'Cities', rating: 'Average rating' },
+    stats: { centers: 'Centers', cities: 'Cities', countries: 'Countries', rating: 'Average rating' },
+    areasKicker: 'By place',
+    areasTitle: 'Choose a country',
+    areasAll: 'All places',
     featured: { kicker: 'On view', title: 'From the directory' },
     mapBand: {
-      kicker: 'Across Israel',
-      title: 'Every center on the map',
-      lede: 'Choose a pin to see the rating and how to get in touch. Each card also opens in Google Maps.',
+      kicker: 'A map for each place',
+      title: 'The map follows the place you choose',
+      lede: 'Pick a place and the map shows only that list. Each card also opens in Google Maps.',
       open: 'Open the full map',
     },
     points: [
@@ -347,8 +386,8 @@ export const copy: Record<Lang, Copy> = {
       },
     ],
     footer: {
-      blurb: 'A directory of rehab and recovery centers in Israel.',
-      emergency: 'This site is not an emergency service and not medical advice. If you need urgent help, call Magen David Adom at 101 or ERAN at 1201.',
+      blurb: 'A directory of rehab and recovery centers by country.',
+      emergency: 'This site is not an emergency service and not medical advice. In Israel, call Magen David Adom at 101 or ERAN at 1201. In other countries, use the local emergency number.',
       rights: 'All rights reserved.',
     },
     care: {
@@ -377,6 +416,8 @@ export const copy: Record<Lang, Copy> = {
     },
     filters: {
       search: 'Search',
+      country: 'Country',
+      allCountries: 'All countries',
       city: 'City',
       allCities: 'All cities',
       care: 'Program type',
@@ -397,7 +438,7 @@ export const copy: Record<Lang, Copy> = {
       resultOne: '1 center',
       results: 'centers',
       emptyTitle: 'No centers match these filters',
-      emptyText: 'Try another city, or clear the search.',
+      emptyText: 'Try another country, or clear the search.',
       reset: 'Clear filters',
     },
     card: {
@@ -409,6 +450,7 @@ export const copy: Record<Lang, Copy> = {
       onMap: 'On the map',
       email: 'Email',
       website: 'Website',
+      bookTour: 'Book a tour',
     },
     detail: {
       back: 'Back to centers',
@@ -429,7 +471,9 @@ export const copy: Record<Lang, Copy> = {
       sampleNote: 'This is a sample card. The phone, website, and rating do not belong to a real program.',
       pricing: 'Price',
       social: 'Social',
-      quotes: 'Reviews',
+      quotes: 'Reviews and recommendations',
+      reviewOpen: 'Read the explanation',
+      reviewClose: 'Hide the explanation',
       branches: 'Branches and phones',
       noRating: 'No Google rating was found for this center.',
       source: 'Source',
@@ -453,15 +497,25 @@ export const copy: Record<Lang, Copy> = {
       sampleWarning: 'This center is a sample, so the inquiry will not reach a real program.',
       generalTitle: 'Leave your details and we will get back to you',
       centerTitle: 'Ask them to call you back',
+      tourTitle: 'Request a tour',
+      tourNote: 'Choose a preferred date. The request is saved on this device and is not a confirmed time. Delivery to the center will be connected once the list is ready.',
+      tourDate: 'Preferred date',
+      tourTime: 'Time of day',
+      morning: 'Morning',
+      afternoon: 'Afternoon',
+      evening: 'Evening',
+      tourSubmit: 'Send tour request',
+      tourSuccess: 'The tour request is saved on this device. The time is not confirmed. Delivery to the center will be connected once the list is ready.',
+      dateError: 'Choose a date from today onward.',
     },
     about: {
       kicker: 'The directory',
       title: 'How to read this site',
       script: 'Before the full list',
       paragraphs: [
-        'GMILA is a directory of rehab and recovery centers in Israel. Each card has room for photos, a location, a Google rating, hours, languages, the type of program, and ways to get in touch.',
-        'The list comes from the centers’ sites, government directories, and Google listings when a score exists. If no rating was found, the card stays without stars.',
-        'Filter by city, program type, and focus, open any place in Google Maps, and call, WhatsApp, or leave an inquiry.',
+        'GMILA is a directory of rehab and recovery centers, split into Israel, New York, Cyprus, Europe, and Thailand. Each card has room for photos, a location, a Google rating, hours, languages, the type of program, and ways to get in touch.',
+        'The list comes from the centers’ sites, government directories, and Google listings only when the score matches the center. If no rating was confirmed, the card stays without stars.',
+        'Filter by place, country, city, program type, and focus, open any place in Google Maps, and call, WhatsApp, or leave an inquiry.',
         'The site helps you find a program. It is not medical advice and it is not an emergency service.',
       ],
     },
@@ -482,7 +536,7 @@ export const copy: Record<Lang, Copy> = {
       close: 'Close',
     },
     meta: {
-      home: 'GMILA | Rehab centers in Israel',
+      home: 'GMILA | Rehab centers by country',
       centers: 'All centers | GMILA',
       about: 'About | GMILA',
       contact: 'Contact | GMILA',

@@ -249,6 +249,7 @@ export default function CentersMap({
                 />
               ) : null}
               <div className="centers-map__card-actions">
+                <Link to={`/centers/${selected.slug}#tour`}>{t.card.bookTour}</Link>
                 {selected.phone ? <a href={telHref(selected.phone)}>{t.card.call}</a> : null}
                 <button type="button" onClick={onClear}>
                   {t.map.close}

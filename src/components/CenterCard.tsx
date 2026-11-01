@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext.tsx'
 import { googlePlaceUrl, telHref, whatsappHref } from '../lib/centers.ts'
+import { centerCountryId, countryName } from '../lib/places.ts'
 import type { Center } from '../types/center.ts'
 import RatingStars from './RatingStars.tsx'
 import SafeImage from './SafeImage.tsx'
@@ -36,7 +37,7 @@ export default function CenterCard({ center, selected, onHover, onShowOnMap }: C
 
       <div className="center-card__body">
         <p className="kicker">
-          {center.city[lang]} · {t.care[center.care[0]]}
+          {center.city[lang]} · {countryName(centerCountryId(center), lang)} · {t.care[center.care[0]]}
         </p>
         <h2>
           <Link to={`/centers/${center.slug}`}>{name}</Link>
@@ -55,8 +56,11 @@ export default function CenterCard({ center, selected, onHover, onShowOnMap }: C
           ))}
         </ul>
         <div className="center-card__actions">
+          <Link className="site-cta site-cta--solid" to={`/centers/${center.slug}#tour`}>
+            {t.card.bookTour}
+          </Link>
           {center.phone ? (
-            <a className="site-cta site-cta--solid" href={telHref(center.phone)}>
+            <a className="site-cta" href={telHref(center.phone)}>
               {t.card.call}
             </a>
           ) : null}

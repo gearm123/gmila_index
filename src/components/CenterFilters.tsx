@@ -1,17 +1,21 @@
-import { CARE_TYPES, FOCUS_AREAS } from '../types/center.ts'
+import { AREA_IDS, CARE_TYPES, FOCUS_AREAS, type AreaId } from '../types/center.ts'
 import { useLanguage } from '../context/LanguageContext.tsx'
 import type { ViewMode } from '../lib/centers.ts'
+import { areaName } from '../lib/places.ts'
 import { useViewport } from '../lib/viewport.ts'
 
 type CenterFiltersProps = {
   q: string
   onQ: (value: string) => void
+  areaId: AreaId | ''
+  countryId: string
   cityId: string
   care: string
   focus: string
   minRating: string
   sort: string
   view: ViewMode
+  countries: { id: string; label: string }[]
   cities: { id: string; label: string }[]
   resultCount: number
   onChange: (key: string, value: string) => void
@@ -21,18 +25,21 @@ type CenterFiltersProps = {
 export default function CenterFilters({
   q,
   onQ,
+  areaId,
+  countryId,
   cityId,
   care,
   focus,
   minRating,
   sort,
   view,
+  countries,
   cities,
   resultCount,
   onChange,
   onReset,
 }: CenterFiltersProps) {
-  const { t } = useLanguage()
+  const { lang, t } = useLanguage()
   const mobile = useViewport() === 'mobile'
   const views: { id: ViewMode; label: string }[] = [
     { id: 'split', label: t.filters.viewSplit },
@@ -42,12 +49,34 @@ export default function CenterFilters({
 
   return (
     <section className="filters" aria-label={t.filters.search}>
+      <div className="area-chips" role="group" aria-label={t.areasTitle}>
+        <button type="button" aria-pressed={areaId === ''} onClick={() => onChange('area', '')}>
+          {t.areasAll}
+        </button>
+        {AREA_IDS.map((id) => (
+          <button key={id} type="button" aria-pressed={areaId === id} onClick={() => onChange('area', areaId === id ? '' : id)}>
+            {areaName(id, lang)}
+          </button>
+        ))}
+      </div>
+
       <label className="field field--search">
         <span>{t.filters.search}</span>
         <input value={q} onChange={(event) => onQ(event.target.value)} placeholder={t.hero.search} />
       </label>
 
       <div className="filters__row">
+        <label className="field">
+          <span>{t.filters.country}</span>
+          <select value={countryId} onChange={(event) => onChange('country', event.target.value)}>
+            <option value="">{t.filters.allCountries}</option>
+            {countries.map((country) => (
+              <option key={country.id} value={country.id}>
+                {country.label}
+              </option>
+            ))}
+          </select>
+        </label>
         <label className="field">
           <span>{t.filters.city}</span>
           <select value={cityId} onChange={(event) => onChange('city', event.target.value)}>

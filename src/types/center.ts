@@ -22,6 +22,9 @@ export type FocusArea = (typeof FOCUS_AREAS)[number]
 export const SOCIAL_NETWORKS = ['facebook', 'instagram', 'youtube', 'linkedin'] as const
 export type SocialNetwork = (typeof SOCIAL_NETWORKS)[number]
 
+export const AREA_IDS = ['israel', 'new-york', 'cyprus', 'europe', 'thailand'] as const
+export type AreaId = (typeof AREA_IDS)[number]
+
 export type SocialLink = {
   network: SocialNetwork
   url: string
@@ -30,6 +33,9 @@ export type SocialLink = {
 export type CenterQuote = {
   quote: Localized
   by: Localized
+  /** Longer sourced explanation, shown when the line is opened. */
+  detail?: Localized
+  sourceUrl?: string
 }
 
 export type CenterBranch = {
@@ -43,6 +49,10 @@ export type Center = {
   slug: string
   /** True until a scraped record replaces this sample. */
   sample: boolean
+  /** Missing means Israel. */
+  countryId?: string
+  /** Missing means the Israel area. */
+  areaId?: AreaId
   cityId: string
   name: Localized
   city: Localized

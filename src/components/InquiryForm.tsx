@@ -47,6 +47,9 @@ export default function InquiryForm({ center }: InquiryFormProps) {
         email: email.trim(),
         contactMethod: method,
         message: message.trim(),
+        purpose: 'callback',
+        tourDate: null,
+        tourTime: null,
       })
       setError('')
       setDone(true)

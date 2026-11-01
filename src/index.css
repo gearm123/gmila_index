@@ -373,7 +373,7 @@ html[dir='rtl'] .hero__script {
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.8rem;
   margin-top: 2rem;
   padding: 1rem 0;
@@ -561,8 +561,58 @@ html[dir='rtl'] .hero__script {
 
 .filters__row {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   gap: 0.7rem;
+}
+
+.area-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.area-card {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.9rem 0.85rem;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--white);
+}
+
+.area-card strong {
+  font-size: 1.15rem;
+}
+
+.area-card span {
+  color: var(--ink-muted);
+}
+
+.area-card:hover,
+.area-card:focus-visible {
+  border-color: var(--accent);
+}
+
+.area-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.2rem 0 0.9rem;
+}
+
+.area-chips button,
+.area-chips a {
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink-soft);
+}
+
+.area-chips button[aria-pressed='true'] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--white);
 }
 
 .field {
@@ -792,10 +842,12 @@ html[dir='rtl'] .hero__script {
   top: 1rem;
   display: grid;
   gap: 0.9rem;
+  max-height: calc(100dvh - 2rem);
   padding: 1rem;
+  overflow: auto;
   border: 1px solid var(--rule);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.92);
 }
 
 .detail__phone {
@@ -810,6 +862,11 @@ html[dir='rtl'] .hero__script {
 .inquiry {
   display: grid;
   gap: 0.75rem;
+}
+
+#tour {
+  scroll-margin-top: 5.5rem;
+  scroll-margin-bottom: 7rem;
 }
 
 .inquiry__note,
@@ -927,11 +984,24 @@ html[dir='rtl'] .hero__script {
   list-style: none;
 }
 
-.quotes blockquote {
-  margin: 0;
-  padding: 0.8rem 0.9rem;
+.quote {
   border-inline-start: 3px solid var(--accent);
   background: var(--paper-warm);
+}
+
+.quote summary {
+  display: block;
+  padding: 0.8rem 0.9rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.quote summary::-webkit-details-marker {
+  display: none;
+}
+
+.quote blockquote {
+  margin: 0;
 }
 
 .quotes p {
@@ -942,6 +1012,32 @@ html[dir='rtl'] .hero__script {
   margin-top: 0.35rem;
   color: var(--ink-muted);
   font-size: 0.85rem;
+}
+
+.quote__more {
+  display: inline-block;
+  margin-top: 0.55rem;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+.quote__more--close,
+.quote[open] .quote__more--open {
+  display: none;
+}
+
+.quote[open] .quote__more--close {
+  display: inline-block;
+}
+
+.quote__detail {
+  padding: 0 0.9rem 0.9rem;
+}
+
+.quote__detail p {
+  margin: 0 0 0.55rem;
+  line-height: 1.55;
 }
 
 .branch-list li {

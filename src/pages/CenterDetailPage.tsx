@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import CentersMap from '../components/CentersMap.tsx'
+import ReviewList from '../components/ReviewList.tsx'
 import InquiryForm from '../components/InquiryForm.tsx'
+import TourForm from '../components/TourForm.tsx'
 import NotFoundPage from './NotFoundPage.tsx'
 import RatingStars from '../components/RatingStars.tsx'
 import SafeImage from '../components/SafeImage.tsx'
@@ -14,6 +16,7 @@ import {
   telHref,
   whatsappHref,
 } from '../lib/centers.ts'
+import { centerCountryId, countryName } from '../lib/places.ts'
 import { useViewport } from '../lib/viewport.ts'
 import type { Center } from '../types/center.ts'
 
@@ -68,7 +71,7 @@ function CenterProfile({ center }: { center: Center }) {
       </p>
       <header className="page-intro">
         <p className="kicker">
-          {center.city[lang]} · {center.region[lang]}
+          {center.city[lang]} · {countryName(centerCountryId(center), lang)} · {center.region[lang]}
         </p>
         <h1>{name}</h1>
         {center.googleRating != null ? (
@@ -127,21 +130,7 @@ function CenterProfile({ center }: { center: Center }) {
               </ul>
             </>
           ) : null}
-          {center.quotes.length > 0 ? (
-            <>
-              <h2>{t.detail.quotes}</h2>
-              <ul className="quotes">
-                {center.quotes.map((item) => (
-                  <li key={item.quote.en}>
-                    <blockquote>
-                      <p>{item.quote[lang]}</p>
-                      <footer>{item.by[lang]}</footer>
-                    </blockquote>
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : null}
+          <ReviewList center={center} />
           <dl className="facts">
             {facts.map(([label, value]) => (
               <div key={label}>
@@ -168,8 +157,11 @@ function CenterProfile({ center }: { center: Center }) {
             </p>
           ) : null}
           <div className="detail__actions">
+            <a className="site-cta site-cta--solid" href="#tour">
+              {t.card.bookTour}
+            </a>
             {center.phone ? (
-              <a className="site-cta site-cta--solid" href={telHref(center.phone)}>
+              <a className="site-cta" href={telHref(center.phone)}>
                 {t.card.call}
               </a>
             ) : null}
@@ -205,6 +197,7 @@ function CenterProfile({ center }: { center: Center }) {
             </div>
           ) : null}
           <InquiryForm center={center} />
+          <TourForm center={center} />
         </aside>
       </div>
 
@@ -218,8 +211,11 @@ function CenterProfile({ center }: { center: Center }) {
 
       {mobile ? (
         <div className="mobile-actions">
+          <a className="site-cta site-cta--solid mobile-actions__tour" href="#tour">
+            {t.card.bookTour}
+          </a>
           {center.phone ? (
-            <a className="site-cta site-cta--solid" href={telHref(center.phone)}>
+            <a className="site-cta" href={telHref(center.phone)}>
               {t.card.call}
             </a>
           ) : null}

@@ -7,7 +7,9 @@ import Seo from '../components/Seo.tsx'
 import { useLanguage } from '../context/LanguageContext.tsx'
 import { centers } from '../data/centers.ts'
 import {
+  centersInScope,
   cityOptions,
+  countryOptions,
   filterCenters,
   isCareType,
   isFocusArea,
@@ -15,6 +17,7 @@ import {
   isViewMode,
   type ViewMode,
 } from '../lib/centers.ts'
+import { isAreaId } from '../lib/places.ts'
 import { useViewport } from '../lib/viewport.ts'
 
 export default function CentersPage() {
@@ -43,6 +46,9 @@ export default function CentersPage() {
     return () => window.clearTimeout(handle)
   }, [q, setParams])
 
+  const areaParam = params.get('area')
+  const areaId = isAreaId(areaParam) ? areaParam : ''
+  const countryId = params.get('country') ?? ''
   const cityId = params.get('city') ?? ''
   const careParam = params.get('care')
   const focusParam = params.get('focus')
@@ -62,6 +68,8 @@ export default function CentersPage() {
         centers,
         {
           q: params.get('q') ?? '',
+          areaId,
+          countryId,
           cityId,
           care,
           focus,
@@ -70,7 +78,7 @@ export default function CentersPage() {
         },
         lang,
       ),
-    [params, cityId, care, focus, minRating, sort, lang],
+    [params, areaId, countryId, cityId, care, focus, minRating, sort, lang],
   )
 
   useEffect(() => {
@@ -87,12 +95,20 @@ export default function CentersPage() {
     document.getElementById('directory-map')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }, [selectedId, view])
 
+  const areaScope = useMemo(() => centersInScope(areaId, ''), [areaId])
+  const scope = useMemo(() => centersInScope(areaId, countryId), [areaId, countryId])
+
   function setParam(key: string, value: string) {
     setParams(
       (prev) => {
         const next = new URLSearchParams(prev)
         if (value) next.set(key, value)
         else next.delete(key)
+        if (key === 'area') {
+          next.delete('country')
+          next.delete('city')
+        }
+        if (key === 'country') next.delete('city')
         return next
       },
       { replace: true },
@@ -115,13 +131,16 @@ export default function CentersPage() {
       <CenterFilters
         q={q}
         onQ={setQ}
+        areaId={areaId}
+        countryId={countryId}
         cityId={cityId}
         care={care}
         focus={focus}
         minRating={minRating ? String(minRating) : ''}
         sort={sort}
         view={view}
-        cities={cityOptions(lang)}
+        countries={countryOptions(areaScope, lang)}
+        cities={cityOptions(lang, scope)}
         resultCount={filtered.length}
         onChange={setParam}
         onReset={() => {

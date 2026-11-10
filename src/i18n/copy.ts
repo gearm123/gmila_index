@@ -1,4 +1,4 @@
-import type { CareType, FocusArea, SocialNetwork } from '../types/center.ts'
+import type { CareType, FocusArea, ProgramGroup, SocialNetwork } from '../types/center.ts'
 
 export type Lang = 'he' | 'en'
 
@@ -7,7 +7,7 @@ export type Copy = {
   langLabel: string
   sampleAll: string
   sampleSome: string
-  nav: { home: string; centers: string; map: string; about: string; contact: string; aria: string }
+  nav: { home: string; centers: string; therapists: string; map: string; about: string; contact: string; aria: string }
   hero: {
     kicker: string
     title: string
@@ -18,7 +18,7 @@ export type Copy = {
     all: string
     map: string
   }
-  stats: { centers: string; cities: string; countries: string; rating: string }
+  stats: { centers: string; cities: string; countries: string; therapists: string; rating: string }
   areasKicker: string
   areasTitle: string
   areasAll: string
@@ -27,6 +27,7 @@ export type Copy = {
   points: { title: string; text: string }[]
   footer: { blurb: string; emergency: string; rights: string }
   care: Record<CareType, string>
+  program: Record<ProgramGroup, { title: string; text: string }>
   focus: Record<FocusArea, string>
   social: Record<SocialNetwork, string>
   filters: {
@@ -126,35 +127,47 @@ export type Copy = {
   contact: { kicker: string; title: string; lede: string }
   notFound: { title: string; text: string; home: string }
   map: { google: string; osm: string; open: string; close: string }
-  meta: { home: string; centers: string; about: string; contact: string; notFound: string }
+  meta: { home: string; centers: string; therapists: string; about: string; contact: string; notFound: string }
+  therapists: {
+    kicker: string
+    title: string
+    lede: string
+    search: string
+    noPrice: string
+    focus: string
+    back: string
+    countOne: string
+    count: string
+  }
   whatsappText: string
 }
 
 export const copy: Record<Lang, Copy> = {
   he: {
-    brandTagline: 'מרכזי גמילה בעולם',
+    brandTagline: 'מרכזי גמילה בישראל',
     langLabel: 'שפה',
     sampleAll: 'כל הכרטיסים שמוצגים כרגע הם נתוני הדגמה. מספר הטלפון אינו אמיתי. הרשימה המלאה תחליף אותם.',
     sampleSome: 'חלק מהכרטיסים הם נתוני הדגמה ומסומנים בהתאם.',
     nav: {
       home: 'ראשי',
       centers: 'מרכזים',
+      therapists: 'מטפלים',
       map: 'מפה',
       about: 'אודות',
       contact: 'צור קשר',
       aria: 'ניווט ראשי',
     },
     hero: {
-      kicker: 'מדריך לפי מדינה',
-      title: 'מרכזי גמילה לפי מדינה',
-      script: 'במקום אחד',
-      lede: 'ישראל, ניו יורק, קפריסין, אירופה ותאילנד. תמונות, דירוג גוגל כשיש, כתובת ודרך לפנות.',
-      search: 'חיפוש לפי שם, עיר או מדינה',
+      kicker: 'מדריך לגמילה בישראל',
+      title: 'מרכזי גמילה בישראל',
+      script: 'כולל מרפאות ויום',
+      lede: 'אשפוזיות, קהילות, מרפאות של קופות החולים ומרכזי יום שפורסמו. דירוג גוגל רק כשהכרטיס תואם.',
+      search: 'חיפוש לפי שם או עיר',
       searchButton: 'חיפוש',
       all: 'לכל המרכזים',
       map: 'צפייה במפה',
     },
-    stats: { centers: 'מרכזים', cities: 'ערים', countries: 'מדינות', rating: 'דירוג ממוצע' },
+    stats: { centers: 'מרכזים', cities: 'ערים', countries: 'מדינות', therapists: 'מטפלים', rating: 'דירוג ממוצע' },
     areasKicker: 'לפי אזור',
     areasTitle: 'בחרו מדינה',
     areasAll: 'כל האזורים',
@@ -180,8 +193,8 @@ export const copy: Record<Lang, Copy> = {
       },
     ],
     footer: {
-      blurb: 'מדריך למרכזי גמילה ושיקום לפי מדינה.',
-      emergency: 'האתר אינו קו חירום ואינו ייעוץ רפואי. בישראל: מד״א 101, ער״ן 1201. במדינות אחרות: מספר החירום המקומי.',
+      blurb: 'מדריך למרכזי גמילה, מרפאות ומטפלים בהתמכרויות בישראל.',
+      emergency: 'האתר אינו קו חירום ואינו ייעוץ רפואי. בישראל: מד״א 101, ער״ן 1201.',
       rights: 'כל הזכויות שמורות.',
     },
     care: {
@@ -190,6 +203,28 @@ export const copy: Record<Lang, Copy> = {
       day: 'אשפוז יום',
       outpatient: 'אמבולטורי',
       aftercare: 'המשך טיפול',
+    },
+    program: {
+      long: {
+        title: 'תוכנית ארוכה',
+        text: 'קהילה או הוסטל לשנה ויותר. אילנות נמצאת כאן, והוסטל אביבים מפרסם שהות של שנה.',
+      },
+      months: {
+        title: 'גמילה של כמה חודשים',
+        text: 'פנימייה או קהילה טיפולית. משך מדויק מופיע בכרטיס רק אם המקור מפרסם אותו.',
+      },
+      day: {
+        title: 'טיפול יומי',
+        text: 'מרכז יום: מגיעים ביום וחוזרים הביתה, בלי לינה.',
+      },
+      clinic: {
+        title: 'מרפאה',
+        text: 'טיפול בלי לינה: קופות חולים, מרפאות אמבולטוריות ומכונים.',
+      },
+      detox: {
+        title: 'גמילה רפואית קצרה',
+        text: 'אשפוזית של שבועות, או קליטת חירום. זו אינה תוכנית של כמה חודשים.',
+      },
     },
     focus: {
       drugs: 'סמים',
@@ -232,7 +267,7 @@ export const copy: Record<Lang, Copy> = {
       resultOne: 'מרכז אחד',
       results: 'מרכזים',
       emptyTitle: 'אין מרכזים שמתאימים לסינון',
-      emptyText: 'נסו מדינה אחרת, או נקו את החיפוש.',
+      emptyText: 'נסו עיר אחרת, או נקו את החיפוש.',
       reset: 'ניקוי סינון',
     },
     card: {
@@ -306,9 +341,9 @@ export const copy: Record<Lang, Copy> = {
       title: 'איך לקרוא את האתר',
       script: 'לפני הרשימה המלאה',
       paragraphs: [
-        'GMILA הוא מדריך למרכזי גמילה ושיקום. הרשימה מחולקת לישראל, ניו יורק, קפריסין, אירופה ותאילנד. בכל כרטיס יש מקום לתמונות, מיקום, דירוג גוגל, שעות, שפות, סוג המסגרת ודרכי התקשרות.',
-        'הרשימה נלקחה מאתרי המרכזים, ממדריכים ממשלתיים, ומכרטיסי גוגל רק כשהציון תואם למרכז. אם לא אומת דירוג, הכרטיס נשאר בלי כוכבים.',
-        'אפשר לסנן לפי אזור, מדינה, עיר, סוג מסגרת ותחום, לפתוח כל מקום בגוגל מפות, ולהתקשר, לשלוח וואטסאפ או להשאיר פנייה.',
+        'GMILA הוא מדריך ישראלי למרכזי גמילה, למרפאות של קופות החולים ולמסגרות יום. הרשימה נשענת על מאגר משרד הבריאות מ־10 בנובמבר 2026 ועל אתרי המסגרות. מרכזי יום עירוניים של משרד הרווחה, שאין להם כתובת במאגר, מגיעים דרך העובד הסוציאלי ביחידת ההתמכרויות ברשות. עמוד משרד הבריאות לשנת 2025 מציין השתתפות עצמית של 50 ש״ח בחודש למבוגרים במרכז יום, ובלי השתתפות עצמית לנוער.',
+        'דירוג גוגל מוצג רק כשנמצא כרטיס שתואם למרכז. אם לא אומת ציון, הכרטיס נשאר בלי כוכבים.',
+        'לשונית המטפלים מציגה אנשי טיפול שאתר שלהם מפרסם טיפול בהתמכרויות, טלפון, ומחיר כשהוא פורסם. זו אינה רשימה של כל המטפלים בישראל.',
         'האתר עוזר למצוא מסגרת. הוא אינו ייעוץ רפואי ואינו שירות חירום.',
       ],
     },
@@ -329,38 +364,51 @@ export const copy: Record<Lang, Copy> = {
       close: 'סגירה',
     },
     meta: {
-      home: 'GMILA | מרכזי גמילה לפי מדינה',
+      home: 'GMILA | מרכזי גמילה בישראל',
       centers: 'כל המרכזים | GMILA',
+      therapists: 'מטפלים בהתמכרויות | GMILA',
       about: 'אודות | GMILA',
       contact: 'צור קשר | GMILA',
       notFound: 'העמוד לא נמצא | GMILA',
     },
     whatsappText: 'שלום, אשמח לפרטים על',
+    therapists: {
+      kicker: 'טיפול פרטי',
+      title: 'מטפלים בהתמכרויות',
+      lede: 'אנשי טיפול בישראל שאתר שלהם מפרסם טיפול בהתמכרויות לסמים, עם טלפון ומחיר כשהוא פורסם. זו אינה רשימה של כל המטפלים בארץ.',
+      search: 'חיפוש לפי שם או עיר',
+      noPrice: 'לא פורסם מחיר.',
+      focus: 'תחומי טיפול',
+      back: 'חזרה למטפלים',
+      countOne: 'מטפל אחד',
+      count: 'מטפלים',
+    },
   },
   en: {
-    brandTagline: 'Rehab centers by country',
+    brandTagline: 'Israeli rehab centers',
     langLabel: 'Language',
     sampleAll: 'Every card on the site right now is sample data. The phone numbers are not real. The full list will replace them.',
     sampleSome: 'Some cards are sample data and are marked as such.',
     nav: {
       home: 'Home',
       centers: 'Centers',
+      therapists: 'Therapists',
       map: 'Map',
       about: 'About',
       contact: 'Contact',
       aria: 'Primary',
     },
     hero: {
-      kicker: 'A directory by country',
-      title: 'Rehab centers by country',
-      script: 'in one place',
-      lede: 'Israel, New York, Cyprus, Europe, and Thailand. Photos, a Google rating when one matches, an address, and a way to reach each program.',
-      search: 'Search by name, city, or country',
+      kicker: 'An Israel directory',
+      title: 'Rehab centers in Israel',
+      script: 'clinics and day programs too',
+      lede: 'Detox wards, communities, health-fund clinics, and published day programs. A Google rating only when the listing matches.',
+      search: 'Search by name or city',
       searchButton: 'Search',
       all: 'All centers',
       map: 'View the map',
     },
-    stats: { centers: 'Centers', cities: 'Cities', countries: 'Countries', rating: 'Average rating' },
+    stats: { centers: 'Centers', cities: 'Cities', countries: 'Countries', therapists: 'Therapists', rating: 'Average rating' },
     areasKicker: 'By place',
     areasTitle: 'Choose a country',
     areasAll: 'All places',
@@ -386,8 +434,8 @@ export const copy: Record<Lang, Copy> = {
       },
     ],
     footer: {
-      blurb: 'A directory of rehab and recovery centers by country.',
-      emergency: 'This site is not an emergency service and not medical advice. In Israel, call Magen David Adom at 101 or ERAN at 1201. In other countries, use the local emergency number.',
+      blurb: 'A directory of Israeli rehab centers, clinics, and addiction therapists.',
+      emergency: 'This site is not an emergency service and not medical advice. In Israel, call Magen David Adom at 101 or ERAN at 1201.',
       rights: 'All rights reserved.',
     },
     care: {
@@ -396,6 +444,28 @@ export const copy: Record<Lang, Copy> = {
       day: 'Day program',
       outpatient: 'Outpatient',
       aftercare: 'Aftercare',
+    },
+    program: {
+      long: {
+        title: 'Longer program',
+        text: 'A community or hostel of a year or more. Ilanot is here, and the Avivim hostel publishes a one-year stay.',
+      },
+      months: {
+        title: 'A few months',
+        text: 'A residential program or therapeutic community. The card states a length only when the source publishes one.',
+      },
+      day: {
+        title: 'Daily care',
+        text: 'A day center: people come during the day and go home, with no overnight stay.',
+      },
+      clinic: {
+        title: 'Clinic',
+        text: 'Care without an overnight stay: health-fund clinics, outpatient clinics, and institutes.',
+      },
+      detox: {
+        title: 'Short medical detox',
+        text: 'A ward of weeks, or emergency intake. This is not a program of several months.',
+      },
     },
     focus: {
       drugs: 'Drugs',
@@ -438,7 +508,7 @@ export const copy: Record<Lang, Copy> = {
       resultOne: '1 center',
       results: 'centers',
       emptyTitle: 'No centers match these filters',
-      emptyText: 'Try another country, or clear the search.',
+      emptyText: 'Try another city, or clear the search.',
       reset: 'Clear filters',
     },
     card: {
@@ -513,9 +583,9 @@ export const copy: Record<Lang, Copy> = {
       title: 'How to read this site',
       script: 'Before the full list',
       paragraphs: [
-        'GMILA is a directory of rehab and recovery centers, split into Israel, New York, Cyprus, Europe, and Thailand. Each card has room for photos, a location, a Google rating, hours, languages, the type of program, and ways to get in touch.',
-        'The list comes from the centers’ sites, government directories, and Google listings only when the score matches the center. If no rating was confirmed, the card stays without stars.',
-        'Filter by place, country, city, program type, and focus, open any place in Google Maps, and call, WhatsApp, or leave an inquiry.',
+        'GMILA is an Israeli directory of rehab centers, health-fund clinics, and day programs. The list draws on the Health Ministry register of 10 November 2026 and on the programs’ own sites. Municipal welfare day centers that have no address in that register are reached through the addiction social worker in the local authority. The Health Ministry page for 2025 states a copay of 50 NIS a month for adults in a day center, and no copay for youth.',
+        'A Google rating is shown only when a listing matches the center. If no score was confirmed, the card stays without stars.',
+        'The therapists tab lists clinicians whose own site publishes addiction treatment, a phone number, and a price when one is published. It is not a list of every therapist in Israel.',
         'The site helps you find a program. It is not medical advice and it is not an emergency service.',
       ],
     },
@@ -536,12 +606,24 @@ export const copy: Record<Lang, Copy> = {
       close: 'Close',
     },
     meta: {
-      home: 'GMILA | Rehab centers by country',
+      home: 'GMILA | Rehab centers in Israel',
       centers: 'All centers | GMILA',
+      therapists: 'Addiction therapists | GMILA',
       about: 'About | GMILA',
       contact: 'Contact | GMILA',
       notFound: 'Page not found | GMILA',
     },
     whatsappText: 'Hello, I would like details about',
+    therapists: {
+      kicker: 'Private care',
+      title: 'Addiction therapists',
+      lede: 'Clinicians in Israel whose own site publishes treatment for drug addiction, with a phone number and a price when one is published. This is not a list of every therapist in the country.',
+      search: 'Search by name or city',
+      noPrice: 'No price was published.',
+      focus: 'What they treat',
+      back: 'Back to therapists',
+      countOne: 'One therapist',
+      count: 'therapists',
+    },
   },
 }

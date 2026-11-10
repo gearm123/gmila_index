@@ -3,10 +3,6 @@ import type { Lang } from '../i18n/copy.ts'
 
 export const AREA_LABELS: Record<AreaId, Localized> = {
   israel: { he: 'ישראל', en: 'Israel' },
-  'new-york': { he: 'ניו יורק', en: 'New York' },
-  cyprus: { he: 'קפריסין', en: 'Cyprus' },
-  europe: { he: 'אירופה', en: 'Europe' },
-  thailand: { he: 'תאילנד', en: 'Thailand' },
 }
 
 export const COUNTRY_LABELS: Record<string, Localized> = {

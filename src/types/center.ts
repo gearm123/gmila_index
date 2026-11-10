@@ -6,6 +6,10 @@ export type Localized = {
 export const CARE_TYPES = ['detox', 'residential', 'day', 'outpatient', 'aftercare'] as const
 export type CareType = (typeof CARE_TYPES)[number]
 
+/** How the directory groups a center: length of stay, then day care, then a clinic. */
+export const PROGRAM_GROUPS = ['long', 'months', 'day', 'clinic', 'detox'] as const
+export type ProgramGroup = (typeof PROGRAM_GROUPS)[number]
+
 export const FOCUS_AREAS = [
   'drugs',
   'alcohol',
@@ -22,7 +26,7 @@ export type FocusArea = (typeof FOCUS_AREAS)[number]
 export const SOCIAL_NETWORKS = ['facebook', 'instagram', 'youtube', 'linkedin'] as const
 export type SocialNetwork = (typeof SOCIAL_NETWORKS)[number]
 
-export const AREA_IDS = ['israel', 'new-york', 'cyprus', 'europe', 'thailand'] as const
+export const AREA_IDS = ['israel'] as const
 export type AreaId = (typeof AREA_IDS)[number]
 
 export type SocialLink = {

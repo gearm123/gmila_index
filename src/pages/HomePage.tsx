@@ -5,9 +5,10 @@ import CentersMap from '../components/CentersMap.tsx'
 import Seo from '../components/Seo.tsx'
 import { useLanguage } from '../context/LanguageContext.tsx'
 import { centers } from '../data/centers.ts'
+import { therapists } from '../data/therapists.ts'
 import { averageRating, centersByArea, filterCenters } from '../lib/centers.ts'
 import { AREA_IDS, type AreaId } from '../types/center.ts'
-import { areaName, centerAreaId, centerCountryId } from '../lib/places.ts'
+import { areaName, centerAreaId } from '../lib/places.ts'
 
 export default function HomePage() {
   const { lang, t } = useLanguage()
@@ -19,7 +20,6 @@ export default function HomePage() {
     [lang],
   )
   const cityCount = new Set(centers.map((center) => center.cityId)).size
-  const countryCount = new Set(centers.map((center) => centerCountryId(center))).size
   const mapCenters = centersByArea(mapArea)
   const ratedCount = centers.filter((center) => center.googleRating != null).length
 
@@ -66,8 +66,8 @@ export default function HomePage() {
           <span>{t.stats.cities}</span>
         </div>
         <div>
-          <strong>{countryCount}</strong>
-          <span>{t.stats.countries}</span>
+          <strong>{therapists.length}</strong>
+          <span>{t.stats.therapists}</span>
         </div>
         <div>
           <strong>{ratedCount ? averageRating(centers).toFixed(1) : '—'}</strong>
@@ -75,6 +75,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {AREA_IDS.length > 1 ? (
       <section className="band">
         <div className="section-head">
           <p className="kicker">{t.areasKicker}</p>
@@ -89,6 +90,7 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+      ) : null}
 
       <section className="band">
         <div className="section-head">
@@ -119,6 +121,7 @@ export default function HomePage() {
           <h2>{t.mapBand.title}</h2>
           <p className="lede">{t.mapBand.lede}</p>
         </div>
+        {AREA_IDS.length > 1 ? (
         <div className="area-chips" role="group" aria-label={t.areasTitle}>
           {AREA_IDS.map((areaId) => (
             <button key={areaId} type="button" aria-pressed={mapArea === areaId} onClick={() => setMapArea(areaId)}>
@@ -126,6 +129,7 @@ export default function HomePage() {
             </button>
           ))}
         </div>
+        ) : null}
         <CentersMap
           centers={mapCenters}
           highlightedId={selectedId}

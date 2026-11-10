@@ -30,6 +30,7 @@ export default function Footer({ compact = false }: { compact?: boolean }) {
         <p className="site-footer__blurb">{t.footer.blurb}</p>
         <nav className="site-footer__links" aria-label={t.nav.aria}>
           <Link to="/centers">{t.nav.centers}</Link>
+          <Link to="/therapists">{t.nav.therapists}</Link>
           <Link to="/centers?view=map">{t.nav.map}</Link>
           <Link to="/about">{t.nav.about}</Link>
           <Link to="/contact">{t.nav.contact}</Link>

@@ -13,10 +13,13 @@ import {
   filterCenters,
   isCareType,
   isFocusArea,
+  isProgramGroup,
   isSortKey,
   isViewMode,
+  programGroup,
   type ViewMode,
 } from '../lib/centers.ts'
+import { PROGRAM_GROUPS } from '../types/center.ts'
 import { isAreaId } from '../lib/places.ts'
 import { useViewport } from '../lib/viewport.ts'
 
@@ -54,6 +57,8 @@ export default function CentersPage() {
   const focusParam = params.get('focus')
   const sortParam = params.get('sort')
   const care = isCareType(careParam) ? careParam : ''
+  const kindParam = params.get('kind')
+  const kind = isProgramGroup(kindParam) ? kindParam : ''
   const focus = isFocusArea(focusParam) ? focusParam : ''
   const ratingParam = params.get('rating')
   const minRating = ratingParam === '4' || ratingParam === '4.5' ? Number(ratingParam) : 0
@@ -79,6 +84,10 @@ export default function CentersPage() {
         lang,
       ),
     [params, areaId, countryId, cityId, care, focus, minRating, sort, lang],
+  )
+  const listed = useMemo(
+    () => (kind ? filtered.filter((center) => programGroup(center) === kind) : filtered),
+    [filtered, kind],
   )
 
   useEffect(() => {
@@ -134,14 +143,14 @@ export default function CentersPage() {
         areaId={areaId}
         countryId={countryId}
         cityId={cityId}
-        care={care}
+        kind={kind}
         focus={focus}
         minRating={minRating ? String(minRating) : ''}
         sort={sort}
         view={view}
         countries={countryOptions(areaScope, lang)}
         cities={cityOptions(lang, scope)}
-        resultCount={filtered.length}
+        resultCount={listed.length}
         onChange={setParam}
         onReset={() => {
           setQ('')
@@ -149,7 +158,7 @@ export default function CentersPage() {
         }}
       />
 
-      {filtered.length === 0 ? (
+      {listed.length === 0 ? (
         <div className="empty">
           <h2>{t.filters.emptyTitle}</h2>
           <p>{t.filters.emptyText}</p>
@@ -158,20 +167,35 @@ export default function CentersPage() {
 
       <div className={`directory directory--${view}`}>
         <div className="directory__list">
-          {filtered.map((center) => (
-            <CenterCard
-              key={center.id}
-              center={center}
-              selected={selectedId === center.id}
-              onHover={setHoverId}
-              onShowOnMap={showOnMap}
-            />
-          ))}
+          {PROGRAM_GROUPS.filter((group) => !kind || group === kind).map((group) => {
+            const items = listed.filter((center) => programGroup(center) === group)
+            if (items.length === 0) return null
+            return (
+              <section key={group} className="program-group" aria-labelledby={`program-${group}`}>
+                <header className="program-group__head">
+                  <h2 id={`program-${group}`}>
+                    {t.program[group].title}
+                    <span>{items.length}</span>
+                  </h2>
+                  <p>{t.program[group].text}</p>
+                </header>
+                {items.map((center) => (
+                  <CenterCard
+                    key={center.id}
+                    center={center}
+                    selected={selectedId === center.id}
+                    onHover={setHoverId}
+                    onShowOnMap={showOnMap}
+                  />
+                ))}
+              </section>
+            )
+          })}
         </div>
         {view === 'list' ? null : (
           <div className="directory__map" id="directory-map">
             <CentersMap
-              centers={filtered}
+              centers={listed}
               highlightedId={hoverId ?? selectedId}
               selectedId={selectedId}
               onSelect={(id) => {

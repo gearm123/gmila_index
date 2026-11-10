@@ -2,10 +2,12 @@ import { centers } from '../data/centers.ts'
 import {
   CARE_TYPES,
   FOCUS_AREAS,
+  PROGRAM_GROUPS,
   type AreaId,
   type CareType,
   type Center,
   type FocusArea,
+  type ProgramGroup,
 } from '../types/center.ts'
 import type { Lang } from '../i18n/copy.ts'
 import { centerAreaId, centerCountryId, countryName } from './places.ts'
@@ -78,6 +80,24 @@ function searchText(center: Center): string {
 
 export function isCareType(value: string | null): value is CareType {
   return !!value && (CARE_TYPES as readonly string[]).includes(value)
+}
+
+const LONG_PROGRAMS = new Set(['ilanot', 'avivim'])
+
+/** One shelf for the directory. A published length stays on the card. */
+export function programGroup(center: Center): ProgramGroup {
+  if (LONG_PROGRAMS.has(center.id)) return 'long'
+  const label = `${center.name.he} ${center.supervision.he}`
+  if (/קלט חירום|יח['׳]? קלט/.test(label)) return 'detox'
+  if (center.supervision.he.includes('אשפוזית גמילה רפואית')) return 'detox'
+  if (center.care.includes('day') && !center.care.includes('residential')) return 'day'
+  if (center.care.includes('residential')) return 'months'
+  if (center.care.includes('detox')) return 'detox'
+  return 'clinic'
+}
+
+export function isProgramGroup(value: string | null): value is ProgramGroup {
+  return !!value && (PROGRAM_GROUPS as readonly string[]).includes(value)
 }
 
 export function isFocusArea(value: string | null): value is FocusArea {

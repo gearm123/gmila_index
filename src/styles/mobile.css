@@ -61,7 +61,7 @@ html[data-ui='mobile'] .mobile-tabbar {
   inset-inline: 0;
   bottom: 0;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   padding: 0.3rem 0.35rem calc(0.35rem + env(safe-area-inset-bottom));
   background: var(--white);
   border-top: 1px solid var(--rule);
@@ -76,7 +76,7 @@ html[data-ui='mobile'] .mobile-tabbar a {
   padding: 0.25rem 0.2rem;
   border-radius: 12px;
   color: var(--ink-muted);
-  font-size: 0.78rem;
+  font-size: 0.7rem;
   line-height: 1.15;
   text-align: center;
 }

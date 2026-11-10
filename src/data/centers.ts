@@ -1,7 +1,5 @@
 import type { Center } from '../types/center.ts'
-import { moreWorldCenters } from './moreWorldCenters.ts'
-import { oasasCenters } from './oasasCenters.ts'
-import { worldCenters } from './worldCenters.ts'
+import { ministryCenters } from './ministryCenters.ts'
 
 const none = { quotes: [], branches: [], pricing: null as Center['pricing'] }
 
@@ -1642,7 +1640,5 @@ export const centers: Center[] = [
     sourceUrl: 'https://ezone-rehab.co.il/Branch/e-zone-%D7%A7%D7%99%D7%A1%D7%A8%D7%99%D7%94/',
     publicFunding: false,
   },
-  ...worldCenters,
-  ...moreWorldCenters,
-  ...oasasCenters,
+  ...ministryCenters,
 ]

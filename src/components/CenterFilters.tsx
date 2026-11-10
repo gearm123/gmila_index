@@ -1,4 +1,4 @@
-import { AREA_IDS, CARE_TYPES, FOCUS_AREAS, type AreaId } from '../types/center.ts'
+import { AREA_IDS, FOCUS_AREAS, PROGRAM_GROUPS, type AreaId, type ProgramGroup } from '../types/center.ts'
 import { useLanguage } from '../context/LanguageContext.tsx'
 import type { ViewMode } from '../lib/centers.ts'
 import { areaName } from '../lib/places.ts'
@@ -10,7 +10,7 @@ type CenterFiltersProps = {
   areaId: AreaId | ''
   countryId: string
   cityId: string
-  care: string
+  kind: ProgramGroup | ''
   focus: string
   minRating: string
   sort: string
@@ -28,7 +28,7 @@ export default function CenterFilters({
   areaId,
   countryId,
   cityId,
-  care,
+  kind,
   focus,
   minRating,
   sort,
@@ -49,6 +49,7 @@ export default function CenterFilters({
 
   return (
     <section className="filters" aria-label={t.filters.search}>
+      {AREA_IDS.length > 1 ? (
       <div className="area-chips" role="group" aria-label={t.areasTitle}>
         <button type="button" aria-pressed={areaId === ''} onClick={() => onChange('area', '')}>
           {t.areasAll}
@@ -59,6 +60,7 @@ export default function CenterFilters({
           </button>
         ))}
       </div>
+      ) : null}
 
       <label className="field field--search">
         <span>{t.filters.search}</span>
@@ -66,6 +68,7 @@ export default function CenterFilters({
       </label>
 
       <div className="filters__row">
+        {countries.length > 1 ? (
         <label className="field">
           <span>{t.filters.country}</span>
           <select value={countryId} onChange={(event) => onChange('country', event.target.value)}>
@@ -77,6 +80,7 @@ export default function CenterFilters({
             ))}
           </select>
         </label>
+        ) : null}
         <label className="field">
           <span>{t.filters.city}</span>
           <select value={cityId} onChange={(event) => onChange('city', event.target.value)}>
@@ -118,17 +122,17 @@ export default function CenterFilters({
       </div>
 
       <div className="care-chips" role="group" aria-label={t.filters.care}>
-        <button type="button" aria-pressed={care === ''} onClick={() => onChange('care', '')}>
+        <button type="button" aria-pressed={kind === ''} onClick={() => onChange('kind', '')}>
           {t.filters.allCare}
         </button>
-        {CARE_TYPES.map((item) => (
+        {PROGRAM_GROUPS.map((item) => (
           <button
             key={item}
             type="button"
-            aria-pressed={care === item}
-            onClick={() => onChange('care', care === item ? '' : item)}
+            aria-pressed={kind === item}
+            onClick={() => onChange('kind', kind === item ? '' : item)}
           >
-            {t.care[item]}
+            {t.program[item].title}
           </button>
         ))}
       </div>

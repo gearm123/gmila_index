@@ -12,6 +12,7 @@ export default function Header() {
   const items = [
     { to: '/', label: t.nav.home, active: pathname === '/' },
     { to: '/centers', label: t.nav.centers, active: centersActive },
+    { to: '/therapists', label: t.nav.therapists, active: pathname.startsWith('/therapists') },
     { to: '/centers?view=map', label: t.nav.map, active: mapActive },
     { to: '/about', label: t.nav.about, active: pathname === '/about' },
     { to: '/contact', label: t.nav.contact, active: pathname === '/contact' },

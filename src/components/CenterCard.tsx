@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext.tsx'
-import { googlePlaceUrl, telHref, whatsappHref } from '../lib/centers.ts'
+import { googlePlaceUrl, programGroup, telHref, whatsappHref } from '../lib/centers.ts'
 import { centerCountryId, countryName } from '../lib/places.ts'
 import type { Center } from '../types/center.ts'
 import RatingStars from './RatingStars.tsx'
@@ -37,7 +37,7 @@ export default function CenterCard({ center, selected, onHover, onShowOnMap }: C
 
       <div className="center-card__body">
         <p className="kicker">
-          {center.city[lang]} · {countryName(centerCountryId(center), lang)} · {t.care[center.care[0]]}
+          {center.city[lang]} · {countryName(centerCountryId(center), lang)} · {t.program[programGroup(center)].title}
         </p>
         <h2>
           <Link to={`/centers/${center.slug}`}>{name}</Link>
@@ -47,7 +47,16 @@ export default function CenterCard({ center, selected, onHover, onShowOnMap }: C
             rating={center.googleRating}
             count={center.googleReviewCount ?? undefined}
             label={t.detail.rating}
+            reviewsLabel={t.detail.reviews}
           />
+        ) : (
+          <p className="center-card__rating-note">{t.detail.noRating}</p>
+        )}
+        {center.quotes[0] ? (
+          <p className="center-card__quote">
+            “{center.quotes[0].quote[lang]}”
+            <span>{center.quotes[0].by[lang]}</span>
+          </p>
         ) : null}
         <p className="center-card__summary">{center.summary[lang]}</p>
         <ul className="tags">

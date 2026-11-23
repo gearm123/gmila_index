@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext.tsx'
 import { contentPath } from '../lib/locale.ts'
+import { articleCopy } from '../seo/articleCopy.ts'
 import LangToggle from './LangToggle.tsx'
 import Link from './LocaleLink.tsx'
 
@@ -10,13 +11,14 @@ function bare(pathname: string): string {
 }
 
 export default function Header() {
-  const { t } = useLanguage()
+  const { lang, t } = useLanguage()
   const path = bare(useLocation().pathname)
 
   const items = [
     { to: '/', label: t.nav.home, active: path === '/' },
     { to: '/centers/', label: t.nav.centers, active: path === '/centers' || path.startsWith('/centers/page/'), current: path === '/centers' },
     { to: '/therapists/', label: t.nav.therapists, active: path.startsWith('/therapists') },
+    { to: '/articles/', label: articleCopy[lang].nav, active: path.startsWith('/articles') },
     { to: '/map/', label: t.nav.map, active: path === '/map' },
     { to: '/about/', label: t.nav.about, active: path === '/about' },
     { to: '/contact/', label: t.nav.contact, active: path === '/contact' },

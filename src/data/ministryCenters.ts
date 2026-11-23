@@ -4,7 +4,7 @@ import type { Center } from '../types/center.ts'
 export const ministryCenters: Center[] = [
   {
     id: "moh-15731",
-    slug: "moh-15731",
+    slug: "villa-balance",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -40,7 +40,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37301",
-    slug: "moh-37301",
+    slug: "tzur-harim",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -76,7 +76,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37e05",
-    slug: "moh-37e05",
+    slug: "leumit",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -112,7 +112,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37401",
-    slug: "moh-37401",
+    slug: "hadassah",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -148,7 +148,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37302",
-    slug: "moh-37302",
+    slug: "strauss",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -184,7 +184,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37305",
-    slug: "moh-37305",
+    slug: "lev-hashinui",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -220,7 +220,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37e02",
-    slug: "moh-37e02",
+    slug: "leumit-dual",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -256,7 +256,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37719",
-    slug: "moh-37719",
+    slug: "ogen",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -292,7 +292,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37615",
-    slug: "moh-37615",
+    slug: "dror",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -328,7 +328,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15638",
-    slug: "moh-15638",
+    slug: "ariela",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -364,7 +364,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37717",
-    slug: "moh-37717",
+    slug: "beit-almog",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -400,7 +400,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37e06",
-    slug: "moh-37e06",
+    slug: "leumit",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -436,7 +436,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37713",
-    slug: "moh-37713",
+    slug: "addiction-clinic",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -472,7 +472,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37613",
-    slug: "moh-37613",
+    slug: "maor",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -508,7 +508,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37612",
-    slug: "moh-37612",
+    slug: "retorno-meetings",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -544,7 +544,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37619",
-    slug: "moh-37619",
+    slug: "derech-acheret",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -580,7 +580,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-16630",
-    slug: "moh-16630",
+    slug: "derech-laor",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -616,7 +616,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37622",
-    slug: "moh-37622",
+    slug: "aluma",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -652,7 +652,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37731",
-    slug: "moh-37731",
+    slug: "schwartz",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -688,7 +688,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15642",
-    slug: "moh-15642",
+    slug: "nika",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -724,7 +724,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37722",
-    slug: "moh-37722",
+    slug: "orion",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -760,7 +760,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37308",
-    slug: "moh-37308",
+    slug: "clalit",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -796,7 +796,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15624",
-    slug: "moh-15624",
+    slug: "phoenix",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -832,7 +832,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15631",
-    slug: "moh-15631",
+    slug: "victoria",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -868,7 +868,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-16625",
-    slug: "moh-16625",
+    slug: "phoenix-recovery",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -904,7 +904,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15636",
-    slug: "moh-15636",
+    slug: "renaissance",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -940,7 +940,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-16718",
-    slug: "moh-16718",
+    slug: "emergency-intake",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -976,7 +976,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37730",
-    slug: "moh-37730",
+    slug: "mt-clinic",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1012,7 +1012,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37623",
-    slug: "moh-37623",
+    slug: "choice",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1048,7 +1048,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37c02",
-    slug: "moh-37c02",
+    slug: "sun",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1084,7 +1084,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37304",
-    slug: "moh-37304",
+    slug: "mental-health",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1120,7 +1120,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37624",
-    slug: "moh-37624",
+    slug: "meuhedet",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1156,7 +1156,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37d01",
-    slug: "moh-37d01",
+    slug: "meuhedet",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1192,7 +1192,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37725",
-    slug: "moh-37725",
+    slug: "modaot",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1228,7 +1228,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37729",
-    slug: "moh-37729",
+    slug: "orion",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1264,7 +1264,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37710",
-    slug: "moh-37710",
+    slug: "azamra",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1300,7 +1300,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37e01",
-    slug: "moh-37e01",
+    slug: "leumit",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1336,7 +1336,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-16721",
-    slug: "moh-16721",
+    slug: "keren-or",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1372,7 +1372,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15734",
-    slug: "moh-15734",
+    slug: "new-life",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1408,7 +1408,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-16722",
-    slug: "moh-16722",
+    slug: "new-life-residential",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1444,7 +1444,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37712",
-    slug: "moh-37712",
+    slug: "beit-cham-atid",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1480,7 +1480,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15707",
-    slug: "moh-15707",
+    slug: "beit-cham",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1516,7 +1516,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15719",
-    slug: "moh-15719",
+    slug: "ruach-bakfar",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1552,7 +1552,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37705",
-    slug: "moh-37705",
+    slug: "tzomet",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1588,7 +1588,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37727",
-    slug: "moh-37727",
+    slug: "orion",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1624,7 +1624,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37e04",
-    slug: "moh-37e04",
+    slug: "leumit",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1660,7 +1660,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15644",
-    slug: "moh-15644",
+    slug: "derech-laofek",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1696,7 +1696,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15646",
-    slug: "moh-15646",
+    slug: "maayan-hachaim",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1732,7 +1732,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37c01",
-    slug: "moh-37c01",
+    slug: "addiction-clinic",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1768,7 +1768,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15720",
-    slug: "moh-15720",
+    slug: "peleg",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1804,7 +1804,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-16720",
-    slug: "moh-16720",
+    slug: "yukra",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1840,7 +1840,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15626",
-    slug: "moh-15626",
+    slug: "bereshit",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1876,7 +1876,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15641",
-    slug: "moh-15641",
+    slug: "maayanot",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1912,7 +1912,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15729",
-    slug: "moh-15729",
+    slug: "shvil-haderech",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1948,7 +1948,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15718",
-    slug: "moh-15718",
+    slug: "maavar",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -1984,7 +1984,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15630",
-    slug: "moh-15630",
+    slug: "letzidcha",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2020,7 +2020,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37307",
-    slug: "moh-37307",
+    slug: "clalit",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2056,7 +2056,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37d02",
-    slug: "moh-37d02",
+    slug: "magdiel",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2092,7 +2092,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15643",
-    slug: "moh-15643",
+    slug: "freedom",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2128,7 +2128,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37723",
-    slug: "moh-37723",
+    slug: "nitzachon",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2164,7 +2164,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37614",
-    slug: "moh-37614",
+    slug: "lev-hasharon",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2200,7 +2200,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37707",
-    slug: "moh-37707",
+    slug: "nes",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2236,7 +2236,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37620",
-    slug: "moh-37620",
+    slug: "ica-youth",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2312,7 +2312,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15728",
-    slug: "moh-15728",
+    slug: "yukra",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2348,7 +2348,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37e03",
-    slug: "moh-37e03",
+    slug: "leumit",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2384,7 +2384,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37306",
-    slug: "moh-37306",
+    slug: "mental-health",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2420,7 +2420,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37621",
-    slug: "moh-37621",
+    slug: "outpatient",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2456,7 +2456,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15645",
-    slug: "moh-15645",
+    slug: "mentor",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2492,7 +2492,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-16713",
-    slug: "moh-16713",
+    slug: "emergency-intake",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2528,7 +2528,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37e07",
-    slug: "moh-37e07",
+    slug: "leumit",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2564,7 +2564,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-15714",
-    slug: "moh-15714",
+    slug: "bereshit",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2600,7 +2600,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-37708",
-    slug: "moh-37708",
+    slug: "phoenix",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2636,7 +2636,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: "moh-16716",
-    slug: "moh-16716",
+    slug: "shivtia",
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2672,7 +2672,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: 'maccabi-rx-haifa',
-    slug: 'maccabi-rx-haifa',
+    slug: 'maccabi',
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2708,7 +2708,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: 'maccabi-rx-tira',
-    slug: 'maccabi-rx-tira',
+    slug: 'maccabi',
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2744,7 +2744,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: 'maccabi-rx-netanya',
-    slug: 'maccabi-rx-netanya',
+    slug: 'maccabi',
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2780,7 +2780,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: 'maccabi-rx-jaffa',
-    slug: 'maccabi-rx-jaffa',
+    slug: 'maccabi',
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2816,7 +2816,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: 'maccabi-rx-bat-yam',
-    slug: 'maccabi-rx-bat-yam',
+    slug: 'maccabi',
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2852,7 +2852,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: 'maccabi-rx-beer-sheva',
-    slug: 'maccabi-rx-beer-sheva',
+    slug: 'maccabi',
     sample: false,
     countryId: 'il',
     areaId: 'israel',
@@ -2888,7 +2888,7 @@ export const ministryCenters: Center[] = [
   },
   {
     id: 'acheret-or-akiva',
-    slug: 'acheret-or-akiva',
+    slug: 'acheret',
     sample: false,
     countryId: 'il',
     areaId: 'israel',

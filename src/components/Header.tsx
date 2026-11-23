@@ -1,21 +1,25 @@
-import { Link, useLocation, useSearchParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext.tsx'
+import { contentPath } from '../lib/locale.ts'
 import LangToggle from './LangToggle.tsx'
+import Link from './LocaleLink.tsx'
+
+function bare(pathname: string): string {
+  const content = contentPath(pathname)
+  return content.length > 1 && content.endsWith('/') ? content.slice(0, -1) : content
+}
 
 export default function Header() {
   const { t } = useLanguage()
-  const { pathname } = useLocation()
-  const [params] = useSearchParams()
-  const mapActive = pathname === '/centers' && params.get('view') === 'map'
-  const centersActive = pathname.startsWith('/centers') && !mapActive
+  const path = bare(useLocation().pathname)
 
   const items = [
-    { to: '/', label: t.nav.home, active: pathname === '/' },
-    { to: '/centers', label: t.nav.centers, active: centersActive },
-    { to: '/therapists', label: t.nav.therapists, active: pathname.startsWith('/therapists') },
-    { to: '/centers?view=map', label: t.nav.map, active: mapActive },
-    { to: '/about', label: t.nav.about, active: pathname === '/about' },
-    { to: '/contact', label: t.nav.contact, active: pathname === '/contact' },
+    { to: '/', label: t.nav.home, active: path === '/' },
+    { to: '/centers/', label: t.nav.centers, active: path === '/centers' || path.startsWith('/centers/page/'), current: path === '/centers' },
+    { to: '/therapists/', label: t.nav.therapists, active: path.startsWith('/therapists') },
+    { to: '/map/', label: t.nav.map, active: path === '/map' },
+    { to: '/about/', label: t.nav.about, active: path === '/about' },
+    { to: '/contact/', label: t.nav.contact, active: path === '/contact' },
   ]
 
   return (
@@ -34,7 +38,11 @@ export default function Header() {
         {items.map((item, index) => (
           <span className="site-nav__item" key={item.to}>
             {index > 0 ? <span className="site-nav__dot" aria-hidden="true" /> : null}
-            <Link to={item.to} className={item.active ? 'is-active' : undefined} aria-current={item.active ? 'page' : undefined}>
+            <Link
+              to={item.to}
+              className={item.active ? 'is-active' : undefined}
+              aria-current={(item.current ?? item.active) ? 'page' : undefined}
+            >
               {item.label}
             </Link>
           </span>

@@ -1,0 +1,35 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin
+
+Disallow: /search
+Disallow: /*?q=
+Disallow: /*&q=
+
+Disallow: /*?price=
+Disallow: /*&price=
+Disallow: /*?insurance=
+Disallow: /*&insurance=
+Disallow: /*?type=
+Disallow: /*&type=
+Disallow: /*?sort=
+Disallow: /*&sort=
+Disallow: /*?care=
+Disallow: /*&care=
+Disallow: /*?kind=
+Disallow: /*&kind=
+Disallow: /*?focus=
+Disallow: /*&focus=
+Disallow: /*?rating=
+Disallow: /*&rating=
+Disallow: /*?view=
+Disallow: /*&view=
+Disallow: /*?city=
+Disallow: /*&city=
+Disallow: /*?area=
+Disallow: /*&area=
+Disallow: /*?country=
+Disallow: /*&country=
+Disallow: /*?page=
+Disallow: /*&page=

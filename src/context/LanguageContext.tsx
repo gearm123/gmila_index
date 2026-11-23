@@ -1,8 +1,7 @@
-import { createContext, useContext, useLayoutEffect, useState, type ReactNode } from 'react'
+import { createContext, useContext, useLayoutEffect, type ReactNode } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { copy, type Copy, type Lang } from '../i18n/copy.ts'
-
-const STORAGE_KEY = 'gmila-lang-choice'
-const PICKED_KEY = 'gmila-lang-picked'
+import { contentPath, langFromPath, localePath } from '../lib/locale.ts'
 
 type LanguageContextValue = {
   lang: Lang
@@ -12,20 +11,14 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
-function initialLang(): Lang {
-  if (typeof window === 'undefined') return 'he'
-  if (localStorage.getItem(PICKED_KEY) !== '1') return 'he'
-  const stored = localStorage.getItem(STORAGE_KEY)
-  return stored === 'en' || stored === 'he' ? stored : 'he'
-}
-
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(initialLang)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const lang = langFromPath(location.pathname) ?? 'he'
 
   function setLang(next: Lang) {
-    localStorage.setItem(PICKED_KEY, '1')
-    localStorage.setItem(STORAGE_KEY, next)
-    setLangState(next)
+    const target = `${localePath(contentPath(location.pathname), next)}${location.search}${location.hash}`
+    if (target !== `${location.pathname}${location.search}${location.hash}`) navigate(target)
   }
 
   useLayoutEffect(() => {

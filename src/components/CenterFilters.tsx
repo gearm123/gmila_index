@@ -141,9 +141,15 @@ export default function CenterFilters({
         <p>{resultCount === 1 ? t.filters.resultOne : `${resultCount} ${t.filters.results}`}</p>
         <div className="view-toggle" role="group" aria-label={t.filters.viewList}>
           {views.map((item) => (
-            <button key={item.id} type="button" aria-pressed={view === item.id} onClick={() => onChange('view', item.id)}>
-              {item.label}
-            </button>
+          <button
+            key={item.id}
+            type="button"
+            className={item.id === 'split' ? 'view-toggle__wide' : undefined}
+            aria-pressed={view === item.id}
+            onClick={() => onChange('view', item.id)}
+          >
+            {item.label}
+          </button>
           ))}
         </div>
         <button type="button" className="text-button" onClick={onReset}>

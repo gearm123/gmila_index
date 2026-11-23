@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom'
+import Link from './LocaleLink.tsx'
+import ListingActions from './ListingActions.tsx'
 import { useLanguage } from '../context/LanguageContext.tsx'
-import { googlePlaceUrl, programGroup, telHref, whatsappHref } from '../lib/centers.ts'
+import { centerCompareEntry } from '../lib/compareEntry.ts'
+import { googlePlaceUrl, programGroup, whatsappHref } from '../lib/centers.ts'
+import { centerPath } from '../lib/paths.ts'
 import { centerCountryId, countryName } from '../lib/places.ts'
 import type { Center } from '../types/center.ts'
 import RatingStars from './RatingStars.tsx'
@@ -11,12 +14,15 @@ type CenterCardProps = {
   selected: boolean
   onHover: (id: string | null) => void
   onShowOnMap: (id: string) => void
+  /** h3 when the card sits under a section heading. h2 when the card is the section. */
+  heading?: 'h2' | 'h3'
 }
 
-export default function CenterCard({ center, selected, onHover, onShowOnMap }: CenterCardProps) {
+export default function CenterCard({ center, selected, onHover, onShowOnMap, heading = 'h2' }: CenterCardProps) {
   const { lang, t } = useLanguage()
   const name = center.name[lang]
   const message = `${t.whatsappText} ${name}`
+  const Title = heading
 
   return (
     <article
@@ -25,7 +31,7 @@ export default function CenterCard({ center, selected, onHover, onShowOnMap }: C
       onMouseEnter={() => onHover(center.id)}
       onMouseLeave={() => onHover(null)}
     >
-      <Link to={`/centers/${center.slug}`} className="center-card__media">
+      <Link to={centerPath(center)} className="center-card__media">
         <span className="frame">
           <SafeImage src={center.images[0]} alt={name} />
         </span>
@@ -39,9 +45,9 @@ export default function CenterCard({ center, selected, onHover, onShowOnMap }: C
         <p className="kicker">
           {center.city[lang]} · {countryName(centerCountryId(center), lang)} · {t.program[programGroup(center)].title}
         </p>
-        <h2>
-          <Link to={`/centers/${center.slug}`}>{name}</Link>
-        </h2>
+        <Title>
+          <Link to={centerPath(center)}>{name}</Link>
+        </Title>
         {center.googleRating != null ? (
           <RatingStars
             rating={center.googleRating}
@@ -65,14 +71,10 @@ export default function CenterCard({ center, selected, onHover, onShowOnMap }: C
           ))}
         </ul>
         <div className="center-card__actions">
-          <Link className="site-cta site-cta--solid" to={`/centers/${center.slug}#tour`}>
+          <ListingActions entry={centerCompareEntry(center)} contactTo={`${centerPath(center)}#inquiry`} />
+          <Link className="site-cta" to={`${centerPath(center)}#tour`}>
             {t.card.bookTour}
           </Link>
-          {center.phone ? (
-            <a className="site-cta" href={telHref(center.phone)}>
-              {t.card.call}
-            </a>
-          ) : null}
           {center.whatsapp ? (
             <a className="site-cta" href={whatsappHref(center, message)} target="_blank" rel="noreferrer">
               {t.card.whatsapp}

@@ -1,5 +1,6 @@
 import type { Center } from '../types/center.ts'
 import { ministryCenters } from './ministryCenters.ts'
+import { allSample, anySample } from './sampleState.ts'
 
 const none = { quotes: [], branches: [], pricing: null as Center['pricing'] }
 
@@ -1930,3 +1931,7 @@ export const centers: Center[] = [
   },
   ...ministryCenters,
 ]
+
+if (centers.some((center) => center.sample) !== anySample || centers.every((center) => center.sample) !== allSample) {
+  throw new Error('src/data/sampleState.ts does not match the catalog')
+}

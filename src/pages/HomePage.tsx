@@ -1,5 +1,7 @@
 import { useMemo, useState, type FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import Link from '../components/LocaleLink.tsx'
+import { localePath } from '../lib/locale.ts'
 import CenterCard from '../components/CenterCard.tsx'
 import CentersMap from '../components/CentersMap.tsx'
 import Seo from '../components/Seo.tsx'
@@ -7,6 +9,9 @@ import { useLanguage } from '../context/LanguageContext.tsx'
 import { centers } from '../data/centers.ts'
 import { therapists } from '../data/therapists.ts'
 import { averageRating, centersByArea, filterCenters } from '../lib/centers.ts'
+import { metaDescription, metaTitle } from '../seo/meta.ts'
+import { articleCopy } from '../seo/articleCopy.ts'
+import { guideCopy, guideGroups, topicPath, topicsInGroup } from '../seo/topics.ts'
 import { AREA_IDS, type AreaId } from '../types/center.ts'
 import { areaName, centerAreaId } from '../lib/places.ts'
 
@@ -26,12 +31,21 @@ export default function HomePage() {
   function onSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const value = String(new FormData(event.currentTarget).get('q') ?? '').trim()
-    navigate(value ? `/centers?q=${encodeURIComponent(value)}` : '/centers')
+    navigate(localePath('/centers/', lang), { state: value ? { q: value } : null })
   }
 
   return (
     <>
-      <Seo title={t.meta.home} description={t.hero.lede} />
+      <Seo
+        title={metaTitle(t.hero.title, '', lang === 'he' ? 'אשפוזיות, מרפאות ומרכזי יום' : 'detox, clinics, and care')}
+        description={metaDescription(
+          t.hero.lede,
+          lang === 'he'
+            ? 'הכתובת והטלפון מופיעים רק אם פורסמו. זו אינה המלצה רפואית.'
+            : 'The address and phone appear only when they were published. This is not a medical recommendation.',
+        )}
+        path="/"
+      />
       <section className="hero">
         <p className="kicker">{t.hero.kicker}</p>
         <h1>{t.hero.title}</h1>
@@ -47,10 +61,10 @@ export default function HomePage() {
           </button>
         </form>
         <div className="hero__actions">
-          <Link className="site-cta site-cta--solid" to="/centers">
+          <Link className="site-cta site-cta--solid" to="/centers/">
             {t.hero.all}
           </Link>
-          <Link className="site-cta" to="/centers?view=map">
+          <Link className="site-cta" to="/map/">
             {t.hero.map}
           </Link>
         </div>
@@ -83,7 +97,7 @@ export default function HomePage() {
         </div>
         <div className="area-grid">
           {AREA_IDS.map((areaId) => (
-            <Link key={areaId} className="area-card" to={`/centers?area=${areaId}`}>
+            <Link key={areaId} className="area-card" to="/centers/">
               <strong>{areaName(areaId, lang)}</strong>
               <span>{centersByArea(areaId).length}</span>
             </Link>
@@ -101,6 +115,7 @@ export default function HomePage() {
           {featured.map((center) => (
             <CenterCard
               key={center.id}
+              heading="h3"
               center={center}
               selected={selectedId === center.id}
               onHover={() => undefined}
@@ -113,6 +128,36 @@ export default function HomePage() {
             />
           ))}
         </div>
+      </section>
+
+      <section className="band" aria-labelledby="home-guides">
+        <div className="section-head">
+          <p className="kicker">{guideCopy[lang].kicker}</p>
+          <h2 id="home-guides">{guideCopy[lang].title}</h2>
+          <p className="lede">{guideCopy[lang].lede}</p>
+        </div>
+        {guideGroups.map((group) => {
+          const topics = topicsInGroup(group.id)
+          if (topics.length === 0) return null
+          return (
+            <div key={group.id} className="guide-block">
+              <h3>{group.label[lang]}</h3>
+              <div className="area-grid">
+                {topics.map((topic) => (
+                  <Link key={topic.slug} className="area-card" to={topicPath(topic)}>
+                    <strong>{topic.h1[lang]}</strong>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )
+        })}
+        <Link className="site-cta" to="/guides/">
+          {guideCopy[lang].nav}
+        </Link>{' '}
+        <Link className="site-cta" to="/articles/">
+          {articleCopy[lang].nav}
+        </Link>
       </section>
 
       <section className="band" id="home-map">
@@ -137,7 +182,7 @@ export default function HomePage() {
           onSelect={(id) => setSelectedId((current) => (current === id ? null : id))}
           onClear={() => setSelectedId(null)}
         />
-        <Link className="site-cta" to={`/centers?area=${mapArea}&view=map`}>
+        <Link className="site-cta" to="/map/">
           {t.mapBand.open}
         </Link>
       </section>

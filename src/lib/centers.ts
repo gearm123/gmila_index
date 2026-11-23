@@ -1,4 +1,5 @@
 import { centers } from '../data/centers.ts'
+import { cityPathSlug } from './paths.ts'
 import {
   CARE_TYPES,
   FOCUS_AREAS,
@@ -112,9 +113,9 @@ export function isViewMode(value: string | null): value is ViewMode {
   return value === 'split' || value === 'list' || value === 'map'
 }
 
-export function getCenterBySlug(slug: string | undefined): Center | undefined {
-  if (!slug) return undefined
-  return centers.find((center) => center.slug === slug)
+export function getCenterByPath(city: string | undefined, slug: string | undefined): Center | undefined {
+  if (!city || !slug) return undefined
+  return centers.find((center) => cityPathSlug(center.cityId) === city && center.slug === slug)
 }
 
 export function countryOptions(list: Center[], lang: Lang): { id: string; label: string }[] {
@@ -166,15 +167,30 @@ export function filterCenters(list: Center[], query: CenterQuery, lang: Lang): C
 }
 
 function compareCenters(a: Center, b: Center, sort: SortKey, lang: Lang): number {
-  if (sort === 'name') return a.name[lang].localeCompare(b.name[lang], lang)
+  if (sort === 'name') return a.name[lang].localeCompare(b.name[lang], lang) || a.id.localeCompare(b.id)
   if (sort === 'city') {
-    return a.city[lang].localeCompare(b.city[lang], lang) || a.name[lang].localeCompare(b.name[lang], lang)
+    return (
+      a.city[lang].localeCompare(b.city[lang], lang) ||
+      a.name[lang].localeCompare(b.name[lang], lang) ||
+      a.id.localeCompare(b.id)
+    )
   }
   const ratingA = a.googleRating ?? -1
   const ratingB = b.googleRating ?? -1
   const countA = a.googleReviewCount ?? 0
   const countB = b.googleReviewCount ?? 0
-  return ratingB - ratingA || countB - countA
+  return ratingB - ratingA || countB - countA || a.id.localeCompare(b.id)
+}
+
+/** Catalog order used for /centers/page/2/. Rating, then the program groups, then a stable id. */
+export function directoryOrder(list: Center[]): Center[] {
+  const sorted = filterCenters(list, { q: '', cityId: '', care: '', focus: '', minRating: 0, sort: 'rating' }, 'he')
+  return PROGRAM_GROUPS.flatMap((group) => sorted.filter((center) => programGroup(center) === group))
+}
+
+/** Same cards on page 2 in Hebrew and English. The indexed language decides the split. */
+export function hebrewNameOrder(list: Center[]): Center[] {
+  return list.slice().sort((a, b) => a.name.he.localeCompare(b.name.he, 'he') || a.id.localeCompare(b.id))
 }
 
 export function averageRating(list: Center[]): number {

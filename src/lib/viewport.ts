@@ -15,7 +15,7 @@ export function applyViewport(mode: UiMode = readUiMode()) {
 }
 
 export function useViewport(): UiMode {
-  const [mode, setMode] = useState<UiMode>(readUiMode)
+  const [mode, setMode] = useState<UiMode>('browser')
 
   useLayoutEffect(() => {
     const media = window.matchMedia(MOBILE_QUERY)

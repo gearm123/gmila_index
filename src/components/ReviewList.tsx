@@ -1,4 +1,5 @@
 import type { Center, CenterQuote } from '../types/center.ts'
+import Link from './LocaleLink.tsx'
 import { useLanguage } from '../context/LanguageContext.tsx'
 
 function publishedNote(center: Center): CenterQuote {
@@ -23,6 +24,9 @@ export default function ReviewList({ center }: { center: Center }) {
   return (
     <>
       <h2>{t.detail.quotes}</h2>
+      <p className="review-note">
+        {t.detail.reviewNote} <Link to="/about/#reviews">{t.detail.reviewPolicy}</Link>
+      </p>
       <ul className="quotes">
         {items.map((item, index) => {
           const detail = item.detail?.[lang] ?? (lang === 'he'

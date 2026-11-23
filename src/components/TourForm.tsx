@@ -1,4 +1,5 @@
-import { useId, useState, type FormEvent } from 'react'
+import { useId, useRef, useState, type FormEvent } from 'react'
+import InquiryNotice from './InquiryNotice.tsx'
 import { useLanguage } from '../context/LanguageContext.tsx'
 import { saveInquiry, type ContactMethod, type TourTime } from '../lib/inquiries.ts'
 import type { Center } from '../types/center.ts'
@@ -23,6 +24,11 @@ export default function TourForm({ center }: { center: Center }) {
   const [honey, setHoney] = useState('')
   const [error, setError] = useState('')
   const [done, setDone] = useState(false)
+  const nameRef = useRef<HTMLInputElement>(null)
+  const phoneRef = useRef<HTMLInputElement>(null)
+  const emailRef = useRef<HTMLInputElement>(null)
+  const dateRef = useRef<HTMLInputElement>(null)
+  const errorId = `${formId}-error`
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -32,18 +38,22 @@ export default function TourForm({ center }: { center: Center }) {
     }
     if (name.trim().length < 2) {
       setError(t.form.nameError)
+      nameRef.current?.focus()
       return
     }
     if (phone.replace(/\D/g, '').length < 9) {
       setError(t.form.phoneError)
+      phoneRef.current?.focus()
       return
     }
     if ((email.trim() || method === 'email') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       setError(t.form.emailError)
+      emailRef.current?.focus()
       return
     }
     if (!date || date < todayStamp()) {
       setError(t.form.dateError)
+      dateRef.current?.focus()
       return
     }
 
@@ -80,25 +90,31 @@ export default function TourForm({ center }: { center: Center }) {
       <h2>{t.form.tourTitle}</h2>
       <p className="inquiry__note">{t.form.tourNote}</p>
       {center.sample ? <p className="inquiry__note">{t.form.sampleWarning}</p> : null}
-      <label className="hp" htmlFor={`${formId}-company`}>
-        Company
-        <input
-          id={`${formId}-company`}
-          value={honey}
-          onChange={(event) => setHoney(event.target.value)}
-          tabIndex={-1}
-          autoComplete="off"
-        />
-      </label>
+      <div className="hp" aria-hidden="true">
+        <label htmlFor={`${formId}-company`}>
+          Company
+          <input
+            id={`${formId}-company`}
+            value={honey}
+            onChange={(event) => setHoney(event.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </label>
+      </div>
       <label className="field" htmlFor={`${formId}-date`}>
         <span>{t.form.tourDate}</span>
         <input
+          ref={dateRef}
           id={`${formId}-date`}
           type="date"
           min={todayStamp()}
           value={date}
           onChange={(event) => setDate(event.target.value)}
           required
+          aria-required="true"
+          aria-invalid={error === t.form.dateError}
+          aria-describedby={error === t.form.dateError ? errorId : undefined}
         />
       </label>
       <fieldset className="field">
@@ -125,26 +141,47 @@ export default function TourForm({ center }: { center: Center }) {
       </fieldset>
       <label className="field" htmlFor={`${formId}-name`}>
         <span>{t.form.name}</span>
-        <input id={`${formId}-name`} value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" />
+        <input
+          ref={nameRef}
+          id={`${formId}-name`}
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+          autoComplete="name"
+          required
+          aria-required="true"
+          aria-invalid={error === t.form.nameError}
+          aria-describedby={error === t.form.nameError ? errorId : undefined}
+        />
       </label>
       <label className="field" htmlFor={`${formId}-phone`}>
         <span>{t.form.phone}</span>
         <input
+          ref={phoneRef}
           id={`${formId}-phone`}
+          type="tel"
           value={phone}
           onChange={(event) => setPhone(event.target.value)}
           autoComplete="tel"
           inputMode="tel"
+          required
+          aria-required="true"
+          aria-invalid={error === t.form.phoneError}
+          aria-describedby={error === t.form.phoneError ? errorId : undefined}
         />
       </label>
       <label className="field" htmlFor={`${formId}-email`}>
         <span>{t.form.email}</span>
         <input
+          ref={emailRef}
           id={`${formId}-email`}
+          type="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           autoComplete="email"
           inputMode="email"
+          aria-required={method === 'email'}
+          aria-invalid={error === t.form.emailError}
+          aria-describedby={error === t.form.emailError ? errorId : undefined}
         />
       </label>
       <fieldset className="field">
@@ -174,10 +211,11 @@ export default function TourForm({ center }: { center: Center }) {
         <textarea id={`${formId}-message`} rows={3} value={message} onChange={(event) => setMessage(event.target.value)} />
       </label>
       {error ? (
-        <p className="form-error" role="alert">
+        <p className="form-error" id={errorId} role="alert">
           {error}
         </p>
       ) : null}
+      <InquiryNotice />
       <button className="site-cta site-cta--solid" type="submit">
         {t.form.tourSubmit}
       </button>

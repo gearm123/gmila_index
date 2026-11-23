@@ -1,35 +1,46 @@
-import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { lazy, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import Breadcrumbs from '../components/Breadcrumbs.tsx'
+import Link from '../components/LocaleLink.tsx'
+import { breadcrumbJsonLd, type Crumb } from '../seo/breadcrumbs.ts'
 import CentersMap from '../components/CentersMap.tsx'
+import { ProviderArticleSection } from '../components/ProviderArticles.tsx'
 import ReviewList from '../components/ReviewList.tsx'
 import InquiryForm from '../components/InquiryForm.tsx'
 import TourForm from '../components/TourForm.tsx'
-import NotFoundPage from './NotFoundPage.tsx'
+const MissingPage = lazy(() => import('./MissingPage.tsx'))
 import RatingStars from '../components/RatingStars.tsx'
+import ListingActions from '../components/ListingActions.tsx'
 import SafeImage from '../components/SafeImage.tsx'
 import Seo from '../components/Seo.tsx'
+import { centerCompareEntry } from '../lib/compareEntry.ts'
+import { trackConversion } from '../lib/conversions.ts'
 import { useLanguage } from '../context/LanguageContext.tsx'
 import {
-  getCenterBySlug,
+  getCenterByPath,
   googleDirectionsUrl,
   googlePlaceUrl,
   telHref,
   whatsappHref,
 } from '../lib/centers.ts'
 import { centerCountryId, countryName } from '../lib/places.ts'
-import { useViewport } from '../lib/viewport.ts'
+import { cityTopic, topicPath } from '../seo/topics.ts'
+import { centerPath, cityPathSlug } from '../lib/paths.ts'
+import { metaDescription, metaTitle } from '../seo/meta.ts'
+import { centerIsFilled } from '../seo/filled.ts'
+import { centerProviderJsonLd } from '../seo/provider.ts'
+import { relatedCenters } from '../seo/links.ts'
 import type { Center } from '../types/center.ts'
 
 export default function CenterDetailPage() {
-  const { slug } = useParams()
-  const center = getCenterBySlug(slug)
-  if (!center) return <NotFoundPage />
+  const { city, center: centerSlug } = useParams()
+  const center = getCenterByPath(city, centerSlug)
+  if (!center) return <MissingPage />
   return <CenterProfile key={center.id} center={center} />
 }
 
 function CenterProfile({ center }: { center: Center }) {
   const { lang, t } = useLanguage()
-  const mobile = useViewport() === 'mobile'
   const [photo, setPhoto] = useState(0)
   const [lightbox, setLightbox] = useState(false)
 
@@ -48,6 +59,15 @@ function CenterProfile({ center }: { center: Center }) {
   }, [lightbox])
 
   const name = center.name[lang]
+  const path = centerPath(center)
+  const city = cityTopic(cityPathSlug(center.cityId))
+  const related = relatedCenters(center)
+  const crumbs: Crumb[] = [
+    { name: t.nav.home, path: '/' },
+    { name: t.crumbs.rehab, path: '/centers/' },
+  ]
+  if (city?.place) crumbs.push({ name: city.place[lang], path: topicPath(city) })
+  crumbs.push({ name, path })
   const message = `${t.whatsappText} ${name}`
   const facts = [
     [t.detail.address, center.address[lang]],
@@ -65,10 +85,19 @@ function CenterProfile({ center }: { center: Center }) {
 
   return (
     <article className="detail">
-      <Seo title={`${name} | GMILA`} description={center.summary[lang]} />
-      <p className="detail__back">
-        <Link to="/centers">{t.detail.back}</Link>
-      </p>
+      <Seo
+        title={metaTitle(name, lang === 'he' ? `ב${center.city[lang]}` : `in ${center.city[lang]}`, lang === 'he' ? 'גמילה, כתובת, טלפון, פרטים ומקור פתוח' : 'rehab, address, phone, info')}
+        description={metaDescription(
+          `${name} ${lang === 'he' ? 'ב' : 'in '}${center.city[lang]}. ${center.summary[lang]}`,
+          lang === 'he'
+            ? 'הכתובת והטלפון בכרטיס הם אלה שפורסמו, ושדה ריק נשאר ריק. זו אינה המלצה רפואית.'
+            : 'The address and phone on the card are the ones that were published, and an empty field stays empty. This is not a medical recommendation or a ranking.',
+        )}
+        path={path}
+        index={centerIsFilled(center)}
+        jsonLd={[centerProviderJsonLd(center, lang, path), breadcrumbJsonLd(crumbs, lang)]}
+      />
+      <Breadcrumbs items={crumbs} />
       <header className="page-intro">
         <p className="kicker">
           {center.city[lang]} · {countryName(centerCountryId(center), lang)} · {center.region[lang]}
@@ -89,7 +118,7 @@ function CenterProfile({ center }: { center: Center }) {
 
       <div className="detail__gallery">
         <button type="button" className="frame detail__photo" onClick={() => setLightbox(true)}>
-          <SafeImage src={center.images[photo]} alt={`${name} ${photo + 1}`} />
+          <SafeImage src={center.images[photo]} alt={`${name} ${photo + 1}`} priority />
         </button>
         <div className="detail__thumbs" aria-label={t.detail.gallery}>
           {center.images.map((image, index) => (
@@ -122,15 +151,23 @@ function CenterProfile({ center }: { center: Center }) {
               <ul className="branch-list">
                 {center.branches.map((branch) => (
                   <li key={`${branch.name.en}-${branch.phone}`}>
-                    <strong>{branch.name[lang]}</strong>
+                    <h3>{branch.name[lang]}</h3>
                     <p>{branch.detail[lang]}</p>
-                    {branch.phone ? <a href={telHref(branch.phone)}>{branch.phone}</a> : null}
+                    {branch.phone ? (
+                      <a
+                        href={telHref(branch.phone)}
+                        onClick={() => trackConversion('call', { id: center.id, type: 'center', name })}
+                      >
+                        {branch.phone}
+                      </a>
+                    ) : null}
                   </li>
                 ))}
               </ul>
             </>
           ) : null}
           <ReviewList center={center} />
+          <ProviderArticleSection kind="center" id={center.id} />
           <dl className="facts">
             {facts.map(([label, value]) => (
               <div key={label}>
@@ -153,18 +190,19 @@ function CenterProfile({ center }: { center: Center }) {
         <aside className="detail__contact">
           {center.phone ? (
             <p className="detail__phone">
-              <a href={telHref(center.phone)}>{center.phone}</a>
+              <a
+                href={telHref(center.phone)}
+                onClick={() => trackConversion('call', { id: center.id, type: 'center', name })}
+              >
+                {center.phone}
+              </a>
             </p>
           ) : null}
           <div className="detail__actions">
-            <a className="site-cta site-cta--solid" href="#tour">
+            <ListingActions entry={centerCompareEntry(center)} contactTo="#inquiry" />
+            <a className="site-cta" href="#tour">
               {t.card.bookTour}
             </a>
-            {center.phone ? (
-              <a className="site-cta" href={telHref(center.phone)}>
-                {t.card.call}
-              </a>
-            ) : null}
             {center.whatsapp ? (
               <a className="site-cta" href={whatsappHref(center, message)} target="_blank" rel="noreferrer">
                 {t.card.whatsapp}
@@ -209,26 +247,42 @@ function CenterProfile({ center }: { center: Center }) {
         onClear={() => undefined}
       />
 
-      {mobile ? (
-        <div className="mobile-actions">
-          <a className="site-cta site-cta--solid mobile-actions__tour" href="#tour">
-            {t.card.bookTour}
-          </a>
-          {center.phone ? (
-            <a className="site-cta" href={telHref(center.phone)}>
-              {t.card.call}
-            </a>
-          ) : null}
-          {center.whatsapp ? (
-            <a className="site-cta" href={whatsappHref(center, message)} target="_blank" rel="noreferrer">
-              {t.card.whatsapp}
-            </a>
-          ) : null}
-          <a className="site-cta" href={googleDirectionsUrl(center)} target="_blank" rel="noreferrer">
-            {t.detail.directions}
-          </a>
-        </div>
+      {related.length > 0 || city?.place ? (
+        <section className="band">
+          <div className="section-head">
+            <h2>{t.detail.related}</h2>
+            <p>{t.detail.relatedNote}</p>
+          </div>
+          <div className="area-grid">
+            {related.map((item) => (
+              <Link key={item.id} className="area-card" to={centerPath(item)}>
+                <h3>{item.name[lang]}</h3>
+                <span>{item.city[lang]}</span>
+              </Link>
+            ))}
+            {city?.place ? (
+              <Link className="area-card" to={topicPath(city)}>
+                <h3>{city.h1[lang]}</h3>
+              </Link>
+            ) : null}
+          </div>
+        </section>
       ) : null}
+
+      <div className="mobile-actions">
+        <ListingActions entry={centerCompareEntry(center)} contactTo="#inquiry" />
+        <a className="site-cta" href="#tour">
+          {t.card.bookTour}
+        </a>
+        {center.whatsapp ? (
+          <a className="site-cta" href={whatsappHref(center, message)} target="_blank" rel="noreferrer">
+            {t.card.whatsapp}
+          </a>
+        ) : null}
+        <a className="site-cta" href={googleDirectionsUrl(center)} target="_blank" rel="noreferrer">
+          {t.detail.directions}
+        </a>
+      </div>
 
       {lightbox ? (
         <div className="lightbox" role="dialog" aria-modal="true" aria-label={t.detail.gallery}>

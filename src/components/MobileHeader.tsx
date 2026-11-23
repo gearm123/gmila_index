@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import Link from './LocaleLink.tsx'
 import { useLanguage } from '../context/LanguageContext.tsx'
 import LangToggle from './LangToggle.tsx'
 
